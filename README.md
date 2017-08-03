@@ -3,7 +3,7 @@ Proof of Concept with PyGDF at BEEVA
 
 ### Installation
 
-#### Amazon Web Services ECs instances and AMI
+#### Amazon Web Services EC2 instances and AMI
 
 To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX). This type of AMI's *has a problem*, when you reboot or stop instance and start it again, CUDA drivers dissapears due to unattended upgrades. *To solves this* you should change upgrades configuration with steps below:
 
