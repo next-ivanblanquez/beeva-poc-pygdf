@@ -3,7 +3,7 @@ Proof of Concept with PyGDF at BEEVA
 
 ### Installation
 
-#### Amazon Web Services EC2 instances and AMI
+#### Amazon Web Services EC2 instance and AMI
 
 To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX). This type of AMI's *has a problem*, when you reboot or stop instance and start it again, CUDA drivers dissapears due to unattended upgrades. *To solves this* you should change upgrades configuration with steps below:
 
@@ -94,3 +94,13 @@ Please follow these steps to complete de installation:
 
 
 ### Conclusions
+
+### Related Links
+* [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
+* [A post by MapD of GPU Data Frame](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/)
+* [A description of CUDA and Parallel Processiong in GPUs](http://www.nvidia.es/object/cuda-parallel-computing-es.html)
+* [Apache Arrow official website](https://arrow.apache.org/)
+* [PyGDF repository in GitHub](https://github.com/gpuopenanalytics/pygdf)
+* [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/api.html)
+* [Wiki about Gpu Data Frame and its libraries](https://github.com/gpuopenanalytics/libgdf/wiki)
+* [Article about efficient data transfer through zero copy](https://www.ibm.com/developerworks/library/j-zerocopy/)
