@@ -86,21 +86,84 @@ Please follow these steps to complete de installation:
 ```
 
 
-
-
-
-
 ### Experiments
+
+ I run the same code to proccess count, max, min, mean and std over the same dataset using Pandas an PyGDF framework.
+
+ Dataset is a structure with information about users, movies and raiting that users assignt to each movie, see example below:
+```
+ user_id  movie_id  rating  timestamp
+    1      1193       5  978300760
+    1       661       3  978302109
+    1       914       3  978301968
+    1      3408       4  978300275
+    1      2355       5  978824291
+    1      1197       3  978302268
+    1      1287       5  978302039
+    1      2804       5  978300719
+    1       594       4  978302268
+    1       919       4  978301368
+```
+
+I grow up dataset each iteration from 1M of items to 100M of items
+
+ These are experiments results time processing (ms) for each operation:
+
+* 1M of items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
+|-----------|--------------------|--------------------|
+| Count     | <span style="background-color:green">0.5397796630859375</span> | 0.7538795471191406 |
+| Max       | 28.344392776489258 | <span style="background-color:green">19.478797912597656</span> |
+| Min       | <span style="background-color:green">2.321958541870117</span>  | 17.937660217285156 |
+| Mean      | <span style="background-color:green">3.7069320678710938</span> | 21.35443687438965  |
+| Std       | 133.02135467529297 | <span style="background-color:green">40.7567024230957</span>   |
+
+
+* 10M of items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
+|-----------|--------------------|--------------------|
+| Count     | <span style="background-color:green">0.5795955657958984</span> | 0.6728172302246094 |
+| Max       | <span style="background-color:green">33.93745422363281</span> | 196.3639259338379 |
+| Min       | <span style="background-color:green">8.50057601928711</span>  | 196.85602188110352 |
+| Mean      | <span style="background-color:green">10.051250457763672</span> | 217.09084510803223  |
+| Std       | <span style="background-color:green">133.38470458984375</span> | 582.9811096191406 |
+
+* 20M of items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
+|-----------|--------------------|--------------------|
+| Count     | <span style="background-color:green">0.6260871887207031</span> | 0.7033348083496094 |
+| Max       | <span style="background-color:green">39.650917053222656</span> | 392.64726638793945 |
+| Min       | <span style="background-color:green">15.261411666870117</span> | 394.0465450286865 |
+| Mean      | <span style="background-color:green">15.659332275390625</span> | 433.16197395324707 |
+| Std       | <span style="background-color:green">150.43091773986816</span> | 910.8619689941406 |
+
+* 100M of items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
+|-----------|--------------------|--------------------|
+| Count     | <span style="background-color:green">0.4909038543701172</span> | 0.5466938018798828 |
+| Max       | <span style="background-color:green">80.27124404907227</span> | 2051.4168739318848 |
+| Min       | <span style="background-color:green">55.30118942260742</span> | 2054.2919635772705 |
+| Mean      | <span style="background-color:green">54.63266372680664</span> | 2288.846969604492 |
+| Std       | <span style="background-color:green">248.6863136291504</span> | 6193.148612976074 |
 
 
 ### Conclusions
 
+- La desviación estándar es distinat, puede variar, hasta en las unidades
+
 ### Related Links
 * [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
+* [Pandas official docs](https://pandas.pydata.org/pandas-docs/stable/index.html)
 * [A post by MapD of GPU Data Frame](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/)
 * [A description of CUDA and Parallel Processiong in GPUs](http://www.nvidia.es/object/cuda-parallel-computing-es.html)
 * [Apache Arrow official website](https://arrow.apache.org/)
 * [PyGDF repository in GitHub](https://github.com/gpuopenanalytics/pygdf)
 * [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/api.html)
 * [Wiki about Gpu Data Frame and its libraries](https://github.com/gpuopenanalytics/libgdf/wiki)
+* [MovieLens dataset website](https://grouplens.org/datasets/movielens/)
 * [Article about efficient data transfer through zero copy](https://www.ibm.com/developerworks/library/j-zerocopy/)
+* [AWS User Guide for Accelerated Computing Instances](http://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/accelerated-computing-instances.html)
