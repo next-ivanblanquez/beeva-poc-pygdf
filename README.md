@@ -5,7 +5,7 @@ Proof of Concept with PyGDF at BEEVA
 
 #### Amazon Web Services EC2 instance and AMI
 
-To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX). This type of AMI's *has a problem*, when you reboot or stop instance and start it again, CUDA drivers dissapears due to unattended upgrades. *To solves this* you should change upgrades configuration with steps below:
+To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX). This type of AMI's **has a problem**, when you reboot or stop instance and start it again, CUDA drivers dissapears due to unattended upgrades. **To solves this** you should change upgrades configuration with steps below:
 
 ```
 sudo vim /etc/apt/apt.conf.d/20auto-upgrades
@@ -113,42 +113,42 @@ I grow up dataset each iteration from 1M of items to 100M of items
 
 | Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
 |-----------|--------------------|--------------------|
-| Count     | <span style="background-color:green">0.5397796630859375</span> | 0.7538795471191406 |
-| Max       | 28.344392776489258 | <span style="background-color:green">19.478797912597656</span> |
-| Min       | <span style="background-color:green">2.321958541870117</span>  | 17.937660217285156 |
-| Mean      | <span style="background-color:green">3.7069320678710938</span> | 21.35443687438965  |
-| Std       | 133.02135467529297 | <span style="background-color:green">40.7567024230957</span>   |
+| Count     | **0.5397796630859375** | 0.7538795471191406 |
+| Max       | 28.344392776489258 | **19.478797912597656** |
+| Min       | **2.321958541870117**  | 17.937660217285156 |
+| Mean      | **3.7069320678710938** | 21.35443687438965  |
+| Std       | 133.02135467529297 | **40.7567024230957**   |
 
 
 * 10M of items:
 
 | Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
 |-----------|--------------------|--------------------|
-| Count     | <span style="background-color:green">0.5795955657958984</span> | 0.6728172302246094 |
-| Max       | <span style="background-color:green">33.93745422363281</span> | 196.3639259338379 |
-| Min       | <span style="background-color:green">8.50057601928711</span>  | 196.85602188110352 |
-| Mean      | <span style="background-color:green">10.051250457763672</span> | 217.09084510803223  |
-| Std       | <span style="background-color:green">133.38470458984375</span> | 582.9811096191406 |
+| Count     | **0.5795955657958984** | 0.6728172302246094 |
+| Max       | **33.93745422363281** | 196.3639259338379 |
+| Min       | **8.50057601928711**  | 196.85602188110352 |
+| Mean      | **10.051250457763672** | 217.09084510803223  |
+| Std       | **133.38470458984375** | 582.9811096191406 |
 
 * 20M of items:
 
 | Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
 |-----------|--------------------|--------------------|
-| Count     | <span style="background-color:green">0.6260871887207031</span> | 0.7033348083496094 |
-| Max       | <span style="background-color:green">39.650917053222656</span> | 392.64726638793945 |
-| Min       | <span style="background-color:green">15.261411666870117</span> | 394.0465450286865 |
-| Mean      | <span style="background-color:green">15.659332275390625</span> | 433.16197395324707 |
-| Std       | <span style="background-color:green">150.43091773986816</span> | 910.8619689941406 |
+| Count     | **0.6260871887207031** | 0.7033348083496094 |
+| Max       | **39.650917053222656** | 392.64726638793945 |
+| Min       | **15.261411666870117** | 394.0465450286865 |
+| Mean      | **15.659332275390625** | 433.16197395324707 |
+| Std       | **150.43091773986816** | 910.8619689941406 |
 
 * 100M of items:
 
 | Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
 |-----------|--------------------|--------------------|
-| Count     | <span style="background-color:green">0.4909038543701172</span> | 0.5466938018798828 |
-| Max       | <span style="background-color:green">80.27124404907227</span> | 2051.4168739318848 |
-| Min       | <span style="background-color:green">55.30118942260742</span> | 2054.2919635772705 |
-| Mean      | <span style="background-color:green">54.63266372680664</span> | 2288.846969604492 |
-| Std       | <span style="background-color:green">248.6863136291504</span> | 6193.148612976074 |
+| Count     | **0.4909038543701172** | 0.5466938018798828 |
+| Max       | **80.27124404907227** | 2051.4168739318848 |
+| Min       | **55.30118942260742** | 2054.2919635772705 |
+| Mean      | **54.63266372680664** | 2288.846969604492 |
+| Std       | **248.6863136291504** | 6193.148612976074 |
 
 
 ### Conclusions
