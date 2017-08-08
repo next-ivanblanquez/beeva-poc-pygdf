@@ -110,7 +110,7 @@ Please follow these steps to complete de installation:
  * **Filter operations with conditions in two columns** (Best and Worst movies in years 1995, 2000 and 2005).
  * **Join operations between two datasets**. In this case first I join ratings with users where ratings size is allways greater than users, and then I turn arround the join and use users at first dataset where users size allways is less than ratings. I did it to campare behavior int different cases.
 
- I used two dataset that are structures with information about users, movies and raiting that users assignt to each movie, see example below (you can download these dataset from [s3 bucket](https://s3-eu-west-1.amazonaws.com/poc-pygdf)):
+ I used two dataset that are structures with information about users, movies and raiting that users assignt to each movie, see example below:
 * users
 ```
  user_id    age    ocupation     zip
@@ -141,6 +141,13 @@ Please follow these steps to complete de installation:
 ```
 
 I grow up Ratings dataset each iteration from 1M items to 100M items.
+
+You can downlad dataset here:
+* [Users](https://s3-eu-west-1.amazonaws.com/poc-pygdf/users.dat)
+* [Ratings 1M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-1M.dat)
+* [Ratings 10M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-10M.dat)
+* [Ratings 20M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-20M.dat)
+* [Ratings 100M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-100M.dat)
 
  These are experiments results time processing (milliseconds) for each operation. The best time of each of them is marked as bold:
 
