@@ -1,13 +1,13 @@
 # beeva-poc-pygdf
 
 ## INDEX
-* [Introduction](#introduction-to-poc-pygdf)
-  * [Amazon Web Services EC2 instances and AMIs](#aws-ec2-instances-and-amis)
-  * [PyGDF and Miniconda ecosystem](#pygdf-and-miniconda)
-* [Installation](#installation-ecosystem)
-* [Experiments](#experiments-definitions-and-results)
-* [Conclusions](#conclusiones-of-experiments)
-* [References](#references-links)
+* [Introduction](#introduction)
+  * [Amazon Web Services EC2 instances and AMIs](#amazon-web-services-ec2-instances-and-amis)
+  * [PyGDF and Miniconda ecosystem](#pygdf-and-miniconda-ecosystem)
+* [Installation](#installation)
+* [Experiments](#experiments)
+* [Conclusions](#conclusiones)
+* [References](#references)
 
 ### Introduction
 Proof of Concept with PyGDF at BEEVA.
