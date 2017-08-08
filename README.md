@@ -1,11 +1,22 @@
 # beeva-poc-pygdf
+
+## INDEX
+* [Introduction](#introduction-to-poc-pygdf)
+  * [Amazon Web Services EC2 instances and AMIs](#aws-ec2-instances-and-amis)
+  * [PyGDF and Miniconda ecosystem](#pygdf-and-miniconda)
+* [Installation](#installation-ecosystem)
+* [Experiments](#experiments-definitions-and-results)
+* [Conclusions](#conclusiones-of-experiments)
+* [References](#references-links)
+
+### Introduction
 Proof of Concept with PyGDF at BEEVA.
 
 Comparison between Pandas and PyGDF behavior against the same process over the same data.
 
 ### Installation
 
-#### Amazon Web Services EC2 instance and AMI
+#### Amazon Web Services EC2 instances and AMIs
 
 To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX) and with CPU [Intel Xeon E5 2686 v4](http://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2686%20v4.html).
 
@@ -95,11 +106,11 @@ Please follow these steps to complete de installation:
 ### Experiments
 
  I ran three blocks of operations through to dataset (you can get code [here](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/tree/master/code)):
- * **Statistical operations over columns** (Count, Maximum, Minimun, Mean and Standard deviation).
+ * **Statistical operations throught columns** (Count, Maximum, Minimun, Mean and Standard deviation).
  * **Filter operations with conditions in two columns** (Best and Worst movies in years 1995, 2000 and 2005).
  * **Join operations between two datasets**. In this case first I join ratings with users where ratings size is allways greater than users, and then I turn arround the join and use users at first dataset where users size allways is less than ratings. I did it to campare behavior int different cases.
 
- I used two dataset that are structures with information about users, movies and raiting that users assignt to each movie, see example below:
+ I used two dataset that are structures with information about users, movies and raiting that users assignt to each movie, see example below (you can download these dataset from [s3 bucket](https://s3-eu-west-1.amazonaws.com/poc-pygdf)):
 * users
 ```
  user_id    age    ocupation     zip
@@ -131,7 +142,7 @@ Please follow these steps to complete de installation:
 
 I grow up Ratings dataset each iteration from 1M items to 100M items.
 
- These are experiments results time processing (milliseconds) for each operation:
+ These are experiments results time processing (milliseconds) for each operation. The best time of each of them is marked as bold:
 
 * 1M items:
 
@@ -161,10 +172,10 @@ I grow up Ratings dataset each iteration from 1M items to 100M items.
 | Std       | **133.38470458984375** | 582.9811096191406 | 579.0176391601562 |
 | Best movies in 1995, 2000 and 2005        | 8745.709419250488 | 244.94028091430664 | **208.56070518493652** |
 | Worst movies in 1995, 2000 and 2005       | 7552.948713302612 | 213.67120742797852 | **169.39544677734375** |
-| left join    | 35910.73250770569 /  1380.5065155029297 | 341.91274642944336 / 143.42331886291504 | **78.76896858215332**|
-| inner join    | 273.6356258392334 / 282.37247467041016 | 93.76001358032227 / 97.05257415771484 | **78.53984832763672 75.11520385742188** |
-| outer join    | 34739.8464679718 / 34726.06563568115 | 2181.725025177002 / 669.980525970459 | **1798.2358932495117/ 530.4086208343506** |
-| right join    |52969.77210044861 / 34624.85861778259  | 94.64144706726074 / 311.7403984069824 | **78.76896858215332/242.91491508483887**|
+| left join    | 35910.73250770569 /  1380.5065155029297 | 341.91274642944336 / 143.42331886291504 | **255.90252876281738 / 87.09359169006348**|
+| inner join    | 273.6356258392334 / 282.37247467041016 | 93.76001358032227 / 97.05257415771484 | **78.53984832763672 / 75.11520385742188** |
+| outer join    | 34739.8464679718 / 34726.06563568115 | 2181.725025177002 / 669.980525970459 | **1798.2358932495117 / 530.4086208343506** |
+| right join    |52969.77210044861 / 34624.85861778259  | 94.64144706726074 / 311.7403984069824 | **78.76896858215332 / 242.91491508483887**|
 
 * 20M items:
 
@@ -177,10 +188,10 @@ I grow up Ratings dataset each iteration from 1M items to 100M items.
 | Std       | **150.43091773986816** | 910.8619689941406 | 971.7750549316406|
 | Best movies in 1995, 2000 and 2005        | 16591.485023498535 | 484.8752021789551   | **373.29959869384766** |
 | Worst movies in 1995, 2000 and 2005       | 15012.631416320 | 421.0529327392578   | **334.3355655670166** |
-| left join    | 69988.08264732361 / 1484.544277191162 | 669.6755886077881 / 247.11060523986816 | **501.79409980773926/173.57945442199707** |
-| inner join    | 344.5172309875488 /  366.119384765625 | 190.80686569213867 /  190.71674346923828 | **151.2315273284912/150.09188652038574** |
-| outer join    | 69034.65151786804 /  69001.08456611633 | 6426.183700561523 / 1354.7029495239258 | **5081.736087799072/1059.216022491455** |
-| right join    | 105703.47046852112 /  68888.84925842285  | 189.69488143920898 / 617.1934604644775 | **151.99518203735352/479.142427444458** |
+| left join    | 69988.08264732361 / 1484.544277191162 | 669.6755886077881 / 247.11060523986816 | **501.79409980773926 / 173.57945442199707** |
+| inner join    | 344.5172309875488 /  366.119384765625 | 190.80686569213867 /  190.71674346923828 | **151.2315273284912 / 150.09188652038574** |
+| outer join    | 69034.65151786804 /  69001.08456611633 | 6426.183700561523 / 1354.7029495239258 | **5081.736087799072 / 1059.216022491455** |
+| right join    | 105703.47046852112 /  68888.84925842285  | 189.69488143920898 / 617.1934604644775 | **151.99518203735352 / 479.142427444458** |
 
 
 
@@ -203,9 +214,16 @@ I grow up Ratings dataset each iteration from 1M items to 100M items.
 
 ### Conclusions
 
-- La desviación estándar es distinat, puede variar, hasta en las unidades
+As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/) GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate throught GPU-PCI-CPU. Maybe this is the main advantage of this project. Compare to Pandas whe can foind some advantages and some disadvantage, I talk about them in each of three tests:
 
-### Related Links
+* **Statistical operations throught columns**
+GDF allocate
+
+* **Filter/Selec Where queries**
+
+* **Joins**
+
+### References
 * [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
 * [Pandas official docs](https://pandas.pydata.org/pandas-docs/stable/index.html)
 * [A post by MapD of GPU Data Frame](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/)
