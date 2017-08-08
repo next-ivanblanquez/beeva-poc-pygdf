@@ -6,7 +6,7 @@
   * [PyGDF and Miniconda ecosystem](#pygdf-and-miniconda-ecosystem)
 * [Installation](#installation)
 * [Experiments](#experiments)
-* [Conclusions](#conclusiones)
+* [Conclusions](#conclusions)
 * [References](#references)
 
 ### Introduction
