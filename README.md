@@ -1,11 +1,17 @@
 # beeva-poc-pygdf
-Proof of Concept with PyGDF at BEEVA
+Proof of Concept with PyGDF at BEEVA.
+
+Comparison between Pandas and PyGDF behavior against the same process over the same data.
 
 ### Installation
 
 #### Amazon Web Services EC2 instance and AMI
 
-To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX). This type of AMI's **has a problem**, when you reboot or stop instance and start it again, CUDA drivers dissapears due to unattended upgrades. **To solves this** you should change upgrades configuration with steps below:
+To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX) and with CPU [Intel Xeon E5 2686 v4](http://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2686%20v4.html).
+
+On the other hand I tests Pandas code in AWS EC2 instance optimized to computing. Isntance type is is [c4.4xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX) and with CPU [Intel Xeon E5 2666 v3](http://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2666%20v3.html). I decided use the same software in both instances to get better results in comparison.
+
+This type of AMI's **has a problem**, when you reboot or stop instance and start it again, CUDA drivers dissapears due to unattended upgrades. **To solves this** you should change upgrades configuration with steps below:
 
 ```
 sudo vim /etc/apt/apt.conf.d/20auto-upgrades
@@ -34,7 +40,7 @@ APT::Periodic::AutocleanInterval "0";
 ```
 
 
-Now when you reboot or stop and reestar instances, if you run nvidia-smi command you can get information about GPU instead of a message saying that driver is not installed
+Now when you reboot or stop and reestar instances, if you run nvidia-smi command you can get information about GPU instead of a message saying that driver is not installed.
 
 ```
 nvidia-smi -q | head
@@ -66,7 +72,7 @@ Please follow these steps to complete de installation:
   wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
   bash Miniconda2-latest-Linux-x86_64.sh
 ```
-  After this you need reboot terminal to apply changes into the path
+  After this you need reboot terminal to apply changes into the path.
 
 3. Make virtual enviroment. In folder when you clone pygdf run this code
 ```
@@ -88,67 +94,111 @@ Please follow these steps to complete de installation:
 
 ### Experiments
 
- I run the same code to proccess count, max, min, mean and std over the same dataset using Pandas an PyGDF framework.
+ I ran three blocks of operations through to dataset (you can get code [here](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/tree/master/code)):
+ * **Statistical operations over columns** (Count, Maximum, Minimun, Mean and Standard deviation).
+ * **Filter operations with conditions in two columns** (Best and Worst movies in years 1995, 2000 and 2005).
+ * **Join operations between two datasets**. In this case first I join ratings with users where ratings size is allways greater than users, and then I turn arround the join and use users at first dataset where users size allways is less than ratings. I did it to campare behavior int different cases.
 
- Dataset is a structure with information about users, movies and raiting that users assignt to each movie, see example below:
+ I used two dataset that are structures with information about users, movies and raiting that users assignt to each movie, see example below:
+* users
+```
+ user_id    age    ocupation     zip
+    1        1        10        48067
+    2        56       16        70072
+    3        25       15        55117
+    4        45       7         02460
+    5        25       20        55455
+    6        50       9         55117
+    7        35       1         06810
+    8        25       12        11413
+    9        25       17        61614
+    10       35       1         95370
+```
+* Ratings
 ```
  user_id  movie_id  rating  timestamp
-    1      1193       5  978300760
-    1       661       3  978302109
-    1       914       3  978301968
-    1      3408       4  978300275
-    1      2355       5  978824291
-    1      1197       3  978302268
-    1      1287       5  978302039
-    1      2804       5  978300719
-    1       594       4  978302268
-    1       919       4  978301368
+    1      1193       5     978300760
+    1       661       3     978302109
+    1       914       3     978301968
+    1      3408       4     978300275
+    1      2355       5     978824291
+    1      1197       3     978302268
+    1      1287       5     978302039
+    1      2804       5     978300719
+    1       594       4     978302268
+    1       919       4     978301368
 ```
 
-I grow up dataset each iteration from 1M of items to 100M of items
+I grow up Ratings dataset each iteration from 1M items to 100M items.
 
- These are experiments results time processing (ms) for each operation:
+ These are experiments results time processing (milliseconds) for each operation:
 
-* 1M of items:
+* 1M items:
 
-| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
-|-----------|--------------------|--------------------|
-| Count     | **0.5397796630859375** | 0.7538795471191406 |
-| Max       | 28.344392776489258 | **19.478797912597656** |
-| Min       | **2.321958541870117**  | 17.937660217285156 |
-| Mean      | **3.7069320678710938** | 21.35443687438965  |
-| Std       | 133.02135467529297 | **40.7567024230957**   |
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas (c4.4xlarge) |
+|-----------|--------------------|--------------------|---------------------|
+| Count     | 0.5397796630859375 | 0.7538795471191406 | **0.42247772216796875** |
+| Max       | 28.344392776489258 | 19.478797912597656 | **17.70329475402832** |
+| Min       | **2.321958541870117**  | 17.937660217285156 |17.675399780273438 |
+| Mean      | **3.7069320678710938** | 21.35443687438965  | 19.426345825195312|
+| Std       | 133.02135467529297 | 40.7567024230957   | **34.93976593017578** |
+| Best movies in 1995, 2000 and 2005        | 11188.719749450684 | 39.910316467285156   | **25.78258514404297**|
+| Worst movies in 1995, 2000 and 2005       | 974.2720127105713 | 20.278215408325195   | **16.7996883392334** |
+| left join    | 4847.801923751831 / 1155.2624702453613 | 27.64296531677246 / 3.9191246032714844 | ** 20.226478576660156/ 2.2802352905273438** |
+| inner join    | 215.77215194702148 / 222.059965133667 | 99.89643096923828 / 1.132965087890625 | **3.950834274291992/ 0.946044921875** |
+| outer join    | 3724.7469425201416 / 4067.2049522399902 | 112.32447624206543 / 32.66310691833496 | **87.63790130615234/ 25.241374969482422** |
+| right join    | 5529.9012660980225 / 3916.3753986358643 | 1.2564659118652344 / 16.813278198242188 | **1.13463401794433/ 10.601043701171875** |
 
 
-* 10M of items:
+* 10M items:
 
-| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
-|-----------|--------------------|--------------------|
-| Count     | **0.5795955657958984** | 0.6728172302246094 |
-| Max       | **33.93745422363281** | 196.3639259338379 |
-| Min       | **8.50057601928711**  | 196.85602188110352 |
-| Mean      | **10.051250457763672** | 217.09084510803223  |
-| Std       | **133.38470458984375** | 582.9811096191406 |
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas (c4.4xlarge) |
+|-----------|--------------------|--------------------|---------------------|
+| Count     | 0.5795955657958984 | 0.6728172302246094 | **0.4508495330810547**|
+| Max       | **33.93745422363281** | 196.3639259338379 | 244.6448802947998 |
+| Min       | **8.50057601928711**  | 196.85602188110352 | 243.7267303466797 |
+| Mean      | **10.051250457763672** | 217.09084510803223  | 255.8584213256836|
+| Std       | **133.38470458984375** | 582.9811096191406 | 579.0176391601562 |
+| Best movies in 1995, 2000 and 2005        | 8745.709419250488 | 244.94028091430664 | **208.56070518493652** |
+| Worst movies in 1995, 2000 and 2005       | 7552.948713302612 | 213.67120742797852 | **169.39544677734375** |
+| left join    | 35910.73250770569 /  1380.5065155029297 | 341.91274642944336 / 143.42331886291504 | **78.76896858215332**|
+| inner join    | 273.6356258392334 / 282.37247467041016 | 93.76001358032227 / 97.05257415771484 | **78.53984832763672 75.11520385742188** |
+| outer join    | 34739.8464679718 / 34726.06563568115 | 2181.725025177002 / 669.980525970459 | **1798.2358932495117/ 530.4086208343506** |
+| right join    |52969.77210044861 / 34624.85861778259  | 94.64144706726074 / 311.7403984069824 | **78.76896858215332/242.91491508483887**|
 
-* 20M of items:
+* 20M items:
 
-| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
-|-----------|--------------------|--------------------|
-| Count     | **0.6260871887207031** | 0.7033348083496094 |
-| Max       | **39.650917053222656** | 392.64726638793945 |
-| Min       | **15.261411666870117** | 394.0465450286865 |
-| Mean      | **15.659332275390625** | 433.16197395324707 |
-| Std       | **150.43091773986816** | 910.8619689941406 |
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas (c4.4xlarge) |
+|-----------|--------------------|--------------------|---------------------|
+| Count     | **0.6260871887207031** | 0.7033348083496094 | 1.4688968658447266|
+| Max       | **39.650917053222656** | 392.64726638793945 |1923.2287406921387 |
+| Min       | **15.261411666870117** | 394.0465450286865 |1921.8406677246094 |
+| Mean      | **15.659332275390625** | 433.16197395324707 | 371.43754959106445|
+| Std       | **150.43091773986816** | 910.8619689941406 | 971.7750549316406|
+| Best movies in 1995, 2000 and 2005        | 16591.485023498535 | 484.8752021789551   | **373.29959869384766** |
+| Worst movies in 1995, 2000 and 2005       | 15012.631416320 | 421.0529327392578   | **334.3355655670166** |
+| left join    | 69988.08264732361 / 1484.544277191162 | 669.6755886077881 / 247.11060523986816 | **501.79409980773926/173.57945442199707** |
+| inner join    | 344.5172309875488 /  366.119384765625 | 190.80686569213867 /  190.71674346923828 | **151.2315273284912/150.09188652038574** |
+| outer join    | 69034.65151786804 /  69001.08456611633 | 6426.183700561523 / 1354.7029495239258 | **5081.736087799072/1059.216022491455** |
+| right join    | 105703.47046852112 /  68888.84925842285  | 189.69488143920898 / 617.1934604644775 | **151.99518203735352/479.142427444458** |
 
-* 100M of items:
 
-| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) |
-|-----------|--------------------|--------------------|
-| Count     | **0.4909038543701172** | 0.5466938018798828 |
-| Max       | **80.27124404907227** | 2051.4168739318848 |
-| Min       | **55.30118942260742** | 2054.2919635772705 |
-| Mean      | **54.63266372680664** | 2288.846969604492 |
-| Std       | **248.6863136291504** | 6193.148612976074 |
+
+* 100M items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas (c4.4xlarge) |
+|-----------|--------------------|--------------------|---------------------|
+| Count     | **0.4909038543701172** | 0.5466938018798828 | ERROR |
+| Max       | **80.27124404907227** | 2051.4168739318848 | ERROR|
+| Min       | **55.30118942260742** | 2054.2919635772705 | ERROR|
+| Mean      | **54.63266372680664** | 2288.846969604492 | ERROR|
+| Std       | **248.6863136291504** | 6193.148612976074 | ERROR|
+| Best movies in 1995, 2000 and 2005        | 84433.31599235535 | **2477.0567417144775**   | ERROR|
+| Worst movies in 1995, 2000 and 2005       | 79118.32404136658 | **2178.0457496643066**   | ERROR|
+| left join    | ERROR | **3831.214666366577 / 1330.929517745971** | ERROR |
+| inner join    | ERROR | **1074.42307472229 / 1053.316354751587** | ERROR |
+| outer join    | ERROR | **38308.51697921753 / 7404.616355895996** | ERROR |
+| right join    | ERROR | **1046.5500354766846 / 3419.306516647339** | ERROR |
 
 
 ### Conclusions
