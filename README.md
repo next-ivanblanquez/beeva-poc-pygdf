@@ -106,7 +106,7 @@ Please follow these steps to complete de installation:
 ### Experiments
 
  I ran three blocks of operations through to dataset (you can get code [here](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/tree/master/code)):
- * **Statistical operations throught columns** (Count, Maximum, Minimun, Mean and Standard deviation).
+ * **Statistical operations through columns** (Count, Maximum, Minimun, Mean and Standard deviation).
  * **Filter operations with conditions in two columns** (Best and Worst movies in years 1995, 2000 and 2005).
  * **Join operations between two datasets**. In this case first I join ratings with users where ratings size is allways greater than users, and then I turn arround the join and use users at first dataset where users size allways is less than ratings. I did it to campare behavior int different cases.
 
@@ -221,20 +221,36 @@ You can downlad dataset here:
 
 ### Conclusions
 
-As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/) GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate throught GPU-PCI-CPU. Maybe this is the main advantage of this project. Compare to Pandas whe can foind some advantages and some disadvantage, I talk about them in each of three tests:
+As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/) GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate through GPU-PCI-CPU. Maybe this is the main advantage of this project. Compare to Pandas whe can foind some advantages and some disadvantage, I talk about them in each of three proofs:
 
-* **Statistical operations throught columns**
-GDF allocate
+* **Statistical operations through columns**
+  * GDF implements [Apache Arrow](https://arrow.apache.org/) specification allocating data in columns, so processes looping through columns are faster using PyGDF than using Pandas (between 5 and 20 times faster), except when data size is small, because time to transfer data from disk to gpu is greater than time to process these data. The more data there is, the more difference.
+
 
 * **Filter/Selec Where queries**
+  * In this case, when you need process rows PyGDF behavior is very slow, and allways process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enoguht memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is samll) and this difference remains stable
+
 
 * **Joins**
+  * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
+  * In all cases Pandas running in computing optimized instaces is faster than PyGDF between 3 and 4800 times.
+  * Pandas is faster than PyGDF and very very faster in left and right join.
+  * Pandas still fater than PyGDF but when dataset grwing up that difference decreases specially in inner and outer join.
+
+
+* **Other Considerations**
+  * PyGDF is faster than Pandas in columnar operation
+  * PyGDF has less operatons than Pandas, and you need Pandas or Numpy to load data, doe not load data directly
+  * PyGDF is still in beta phase, there ar not a release (will be released on september)
+  * I think main benefic of GDF is to mantain dataset in GPU scope and work with other tools in this scope
+  * Next step shoul be a PoC using MapD,GDF and H2.io as indicatee in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/)
 
 ### References
 * [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
 * [Pandas official docs](https://pandas.pydata.org/pandas-docs/stable/index.html)
 * [A post by MapD of GPU Data Frame](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/)
 * [A description of CUDA and Parallel Processiong in GPUs](http://www.nvidia.es/object/cuda-parallel-computing-es.html)
+* [An example of how GDF Accelerate data analytics](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/)
 * [Apache Arrow official website](https://arrow.apache.org/)
 * [PyGDF repository in GitHub](https://github.com/gpuopenanalytics/pygdf)
 * [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/api.html)
