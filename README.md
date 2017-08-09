@@ -241,11 +241,11 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 * **Other Considerations**
   * PyGDF is faster than Pandas in columnar operation.
   * PyGDF has less operatons than Pandas, and you need Pandas or Numpy to load data, doe not load data directly.
-  * PyGDF is still in beta phase, there ar not a release (will be released on september), so there is not a community to follow this project yet.
+  * PyGDF is still in beta phase, there ar not a release (will be released on september), so there is not a community to follow this project yet and is not simply to install.
   * PyGDF has not a complete examples and a good documentation of all features.
   * PyGDF only accept numerical data.
   * I think main benefic of GDF is to mantain dataset in GPU scope and work with other tools in this scope
-  * Next step shoul be a PoC using MapD,GDF and H2.io as indicatee in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/)
+  * Next step shoul be a PoC using MapD,GDF and H2.io as indicatee in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/).
 
 ### References
 * [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
