@@ -143,7 +143,7 @@ Please follow these steps to complete de installation:
 I grow up Ratings dataset each iteration from 1M items to 100M items.
 
 You can downlad dataset here:
-* [Users](https://s3-eu-west-1.amazonaws.com/poc-pygdf/users.dat)
+* [Users 60K](https://s3-eu-west-1.amazonaws.com/poc-pygdf/users.dat)
 * [Ratings 1M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-1M.dat)
 * [Ratings 10M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-10M.dat)
 * [Ratings 20M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-20M.dat)
