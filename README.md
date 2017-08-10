@@ -228,14 +228,14 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 
 
 * **Filter/Select Where queries**
-  * In this case, when you need process rows PyGDF behavior is very slow, and allways process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enoguht memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is samll) and this difference remains stable
+  * In this case, when you need process rows PyGDF behavior is very slow, and allways process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enoguht memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is small) and this difference remains stable
 
 
 * **Joins**
   * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
   * In all cases Pandas running in computing optimized instaces is faster than PyGDF between 3 and 4800 times.
-  * Pandas is faster than PyGDF and very very faster in left and right join.
-  * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in inner and outer join.
+  * Pandas is faster than PyGDF and very very faster in left, outer and right join.
+  * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in inner and left join (when size(A) < size(B)).
 
 
 * **Other Considerations**
