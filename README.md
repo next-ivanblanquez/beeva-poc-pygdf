@@ -235,7 +235,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
   * In all cases Pandas running in computing optimized instaces is faster than PyGDF between 3 and 4800 times.
   * Pandas is faster than PyGDF and very very faster in left and right join.
-  * Pandas still fater than PyGDF but when dataset grwing up that difference decreases specially in inner and outer join.
+  * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in inner and outer join.
 
 
 * **Other Considerations**
