@@ -227,7 +227,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * GDF implements [Apache Arrow](https://arrow.apache.org/) specification allocating data in columns, so processes looping through columns are faster using PyGDF than using Pandas (between 5 and 20 times faster), except when data size is small, because time to transfer data from disk to gpu is greater than time to process these data. The more data there is, the more difference.
 
 
-* **Filter/Selec Where queries**
+* **Filter/Select Where queries**
   * In this case, when you need process rows PyGDF behavior is very slow, and allways process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enoguht memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is samll) and this difference remains stable
 
 
