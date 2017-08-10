@@ -235,7 +235,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
   * In all cases Pandas running in computing optimized instaces is faster than PyGDF between 3 and 4800 times.
   * Pandas is faster than PyGDF and very very faster in left and right join.
-  * Pandas still fater than PyGDF but when dataset grwing up that difference decreases specially in left and inner join.
+  * Pandas still fater than PyGDF but when dataset grwing up that difference decreases specially in inner and outer join.
 
 
 * **Other Considerations**
@@ -244,8 +244,9 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * PyGDF is still in beta phase, there ar not a release (will be released on september), so there is not a community to follow this project yet and is not simply to install.
   * PyGDF has not a complete examples and a good documentation of all features.
   * PyGDF only accept numerical data.
-  * I think main benefic of GDF is to mantain dataset in GPU scope and work with other tools in this scope
-  * Next step shoul be a PoC using MapD,GDF and H2.io as indicatee in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/).
+  * PyGDF is not a tool for replace Pandas and improve performance.
+  * I think main benefit of GDF is to mantain dataset in GPU scope and work with other tools in this scope
+  * Next step shoul be a PoC using MapD,GDF and H2.io as indicatee in [this. post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/).
 
 ### References
 * [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
