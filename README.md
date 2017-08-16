@@ -251,9 +251,11 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 ### References
 * [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
 * [Pandas official docs](https://pandas.pydata.org/pandas-docs/stable/index.html)
+* [What is GPU Computing](http://www.nvidia.es/object/gpu-computing-es.html)
 * [A post by MapD of GPU Data Frame](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/)
 * [A description of CUDA and Parallel Processiong in GPUs](http://www.nvidia.es/object/cuda-parallel-computing-es.html)
 * [An example of how GDF Accelerate data analytics](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/)
+* [NVIDIA Tesla homepage](http://www.nvidia.es/object/tesla-high-performance-computing-es.html)
 * [Apache Arrow official website](https://arrow.apache.org/)
 * [PyGDF repository in GitHub](https://github.com/gpuopenanalytics/pygdf)
 * [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/api.html)
