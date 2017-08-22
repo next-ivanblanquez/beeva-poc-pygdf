@@ -2,13 +2,13 @@ import time
 import pandas as pd
 import logging
 
-logging.basicConfig(filename='/home/ubuntu/innovacion/poc_pandas.log', level=logging.INFO)
+logging.basicConfig(filename='/home/ubuntu/pygdf/logs/poc_pandas.log', level=logging.INFO)
 
-USERS = '/home/ubuntu/innovacion/input_files/users.dat'
-RATINGS = '/home/ubuntu/innovacion/input_files/ratings-1M.dat'
-# RATINGS = '/home/ubuntu/innovacion/input_files/ratings-10M.dat'
-# RATINGS = '/home/ubuntu/innovacion/input_files/ratings-20M.dat'
-# RATINGS = '/home/ubuntu/innovacion/input_files/ratings-100M.dat'
+USERS = '/home/ubuntu/pygdf/input_files/users.dat'
+RATINGS = '/home/ubuntu/pygdf/input_files/ratings-1M.dat'
+# RATINGS = '/home/ubuntu/pygdf/input_files/ratings-10M.dat'
+# RATINGS = '/home/ubuntu/pygdf/input_files/ratings-20M.dat'
+# RATINGS = '/home/ubuntu/pygdf/input_files/ratings-100M.dat'
 
 def timing(f):
     def wrap(*args):
@@ -156,4 +156,3 @@ left_join_ratings_users()
 inner_join_ratings_users()
 outer_join_ratings_users()
 right_join_ratings_users()
-
