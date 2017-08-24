@@ -2,17 +2,20 @@
 
 ## INDEX
 * [Introduction](#introduction)
+* [Installation](#installation)
   * [Amazon Web Services EC2 instances and AMIs](#amazon-web-services-ec2-instances-and-amis)
   * [PyGDF and Miniconda ecosystem](#pygdf-and-miniconda-ecosystem)
-* [Installation](#installation)
+* [Previous Analysis](#previous-analysis)
 * [Experiments](#experiments)
+* [Select-Where](#select-where)
+* [Conclusions](#conclusions)
 * [Conclusions](#conclusions)
 * [References](#references)
 
 ### Introduction
 Proof of Concept with PyGDF at BEEVA.
 
-Comparison between Pandas and PyGDF,performance behavior at the same processes over the same dataset.
+Comparison between Pandas and PyGDF, documentation, resources, developer community, learning curve, easy to use and performance behavior at the same processes over the same dataset.
 
 ### Installation
 
@@ -22,7 +25,7 @@ To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in thi
 
 On the other hand I tests Pandas code in AWS EC2 instance optimized to computing. Instance type is  [c4.4xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX) and with CPU [Intel Xeon E5 2666 v3](http://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2666%20v3.html). I decided use the same software in both instances to get better results in the comparison.
 
-This type of AMI's **has a problem**, when you reboot or stop instance and restart it again, CUDA drivers dissapears due to unattended upgrades. **To solves this** you should change upgrades configuration with steps below:
+This type of AMI's **has a problem**, when you reboot or stop instance and restart it again, CUDA drivers dissapears due to unattended upgrades. **To solves this** you should change upgrades configuration following steps below:
 
 ```
 sudo vim /etc/apt/apt.conf.d/20auto-upgrades
@@ -101,13 +104,21 @@ Please follow these steps to complete de installation:
   source activate pygdf_dev
   source deactivate pygdf_dev
 ```
+### Previous Analysis
+
+Before start the experiments I read documentation, looking for example and user arround the Internet, official repositories and these are conclusions about that:
+
+* PyGDF has less operation set than Pandas, for example, it has not operations over rows, just a query function, end the rest operations are over columns.
+* You need Pandas or Numpy to load data, does not load data directly.
+* PyGDF is still in beta phase, there are not a release version yet (will be released on september), so there is not a community following this project yet and is not easy to install.
+* PyGDF neither has not a complete examples or a good documentation of all its features and is not so easy to find them.
 
 
 ### Experiments
 
- I ran three blocks of operations through to dataset (you can get code [here](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/tree/master/code)):
+After making prevous analysis I decide to run three blocks of operations through to dataset (you can get code [here](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/tree/master/code)):
  * **Statistical operations through columns** (Count, Maximum, Minimun, Mean and Standard deviation).
- * **Filter operations with conditions in two columns** (The best and the worst movies in years 1995, 2000 and 2005).
+ * **Filter(Select-Where) operations with conditions in two columns** (The best and the worst movies in years 1995, 2000 and 2005).
  * **Join operations between two datasets**. In this case at first, I run join on ratings and users where ratings size is always greater than users, and then I turn arround the join and use users at first dataset where users size always is less than ratings. I did it to campare behavior int different cases.
 
  I used two dataset that are structures with information about users, movies and rating that users assignt to each movie, see example below:
@@ -217,7 +228,7 @@ You can downlad dataset here:
 | right join    | ERROR | **1046.55 / 3419.30** | N/A | ERROR | N/A |
 
 
-### Select/Where
+### Select-Where
 
 * Operations:
   * 1: timestamp >= 788918400
@@ -301,9 +312,6 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 
 * **Other Considerations**
   * PyGDF is faster than Pandas in columnar operations.
-  * PyGDF has less operations set than Pandas, and you need Pandas or Numpy to load data, doe not load data directly.
-  * PyGDF is still in beta phase, there ar not a release (will be released on september), so there is not a community to follow this project yet and is not easy to install.
-  * PyGDF neither has not a complete examples or a good documentation of all features.
   * PyGDF only accepts numerical data.
   * PyGDF is not a tool for replace Pandas and improve performance.
   * I think main benefit of GDF is to mantain dataset in GPU scope and work with other tools in this scope
