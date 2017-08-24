@@ -42,7 +42,7 @@ def launch_query_1B():
     logging.info('launch_query_1B')
     logging.info('##########################')
     result = df_ratings.query(
-        'timestamp >= 788918400')
+        'timestamp >= 820454400')
 
 
 @timing
@@ -51,7 +51,7 @@ def launch_query_2():
     logging.info('launch_query_2')
     logging.info('##########################')
     result = df_ratings.query(
-        'timestamp >= 788918400 or timestamp <= 820454399')
+        'timestamp >= 788918400 or timestamp <= 852076799')
 
 
 @timing
@@ -60,7 +60,7 @@ def launch_query_2B():
     logging.info('launch_query_2B')
     logging.info('##########################')
     result = df_ratings.query(
-        'timestamp >= 788918400 or timestamp <= 820454399')
+        'timestamp >= 820454400 or timestamp <= 852076799')
 
 
 @timing
@@ -78,7 +78,7 @@ def launch_query_3B():
     logging.info('launch_query_3B')
     logging.info('##########################')
     result = df_ratings.query(
-        '(timestamp >= 788918400 and timestamp <= 820454399) or  (timestamp >= 946684800 and timestamp <= 978307199)')
+        '(timestamp >= 820454400 and timestamp <= 852076799) or  (timestamp >= 978307200 and timestamp <= 1009843199)')
 
 
 @timing
@@ -96,7 +96,7 @@ def launch_query_4B():
     logging.info('launch_query_4B')
     logging.info('##########################')
     result = df_ratings.query(
-        '(timestamp >= 788918400 and timestamp <= 820454399) or  (timestamp >= 946684800 and timestamp <= 978307199) or (timestamp >= 1104537600 and timestamp <= 1136073599)')
+        '(timestamp >= 820454400 and timestamp <= 852076799) or  (timestamp >= 978307200 and timestamp <= 1009843199) or (timestamp >= 1136073600 and timestamp <= 1167609599)')
 
 
 @timing
@@ -114,7 +114,7 @@ def launch_query_5B():
     logging.info('launch_query_5B')
     logging.info('##########################')
     result = df_ratings.query(
-        '((timestamp >= 788918400 and timestamp <= 820454399) or  (timestamp >= 946684800 and timestamp <= 978307199) or (timestamp >= 1104537600 and timestamp <= 1136073599)) and (rating >=5)')
+        '((timestamp >= 820454400 and timestamp <= 852076799) or  (timestamp >= 978307200 and timestamp <= 1009843199) or (timestamp >= 1136073600 and timestamp <= 1167609599)) and (rating >=1)')
 
 
 # =========

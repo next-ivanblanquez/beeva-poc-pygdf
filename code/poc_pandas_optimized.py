@@ -4,7 +4,6 @@ import logging
 
 logging.basicConfig(filename='/home/ubuntu/pygdf/logs/poc_pandas_optimized.log', level=logging.INFO)
 
-USERS = '/home/ubuntu/pygdf/input_files/users.dat'
 RATINGS = '/home/ubuntu/pygdf/input_files/ratings-1M.dat'
 #RATINGS = '/home/ubuntu/pygdf/input_files/ratings-10M.dat'
 #RATINGS = '/home/ubuntu/pygdf/input_files/ratings-20M.dat'
@@ -72,8 +71,6 @@ ratingHeader = ['user_id', 'movie_id', 'rating', 'timestamp']
 ratings = pd.read_table(RATINGS, engine='python', sep='::', header=None, names=ratingHeader)
 # ratings = pd.read_table(RATINGS, engine='python', sep=',', header=None, names=ratingHeader, skiprows=1)
 
-userHeader = ['user_id', 'age', 'ocupation', 'zip']
-users = pd.read_table(USERS, engine='python', sep='::', header=None, names=userHeader)
 
 # ====================
 # || LAUNCH QUERIES ||
