@@ -10,6 +10,7 @@
 * [Select-Where](#select-where)
 * [Conclusions](#conclusions)
 * [Conclusions](#conclusions)
+* [Resources](#resources)
 * [References](#references)
 
 ### Introduction
@@ -153,7 +154,7 @@ After making prevous analysis I decide to run three blocks of operations through
 
 I grow up Ratings dataset each iteration from 1M items to 100M items.
 
-You can downlad dataset here:
+You can download dataset here:
 * [Users 60K](https://s3-eu-west-1.amazonaws.com/poc-pygdf/users.dat)
 * [Ratings 1M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-1M.dat)
 * [Ratings 10M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-10M.dat)
@@ -173,10 +174,10 @@ You can downlad dataset here:
 | Std       | 133.02 | 40.75   | 19.84 |34.93 |**16.32**|
 | The best movies in 1995, 2000 and 2005        | 11188.71 | 39.91   | N/A | **25.78**|N/A|
 | The worst movies in 1995, 2000 and 2005       | 974.27 | 20.27   | N/A |**16.79** |N/A|
-| left join    | 4847.80 / 1155.26 | 27.64 / 3.91 |N/A | ** 20.22/ 2.28** |N/A|
-| inner join    | 215.77 / 222.05 | 99.89 / 1.13 |N/A | **3.95/ 0.94** |N/A|
-| outer join    | 3724.74 / 4067.20 | 112.32 / 32.66 |N/A | **87.63/ 25.24** |N/A|
-| right join    | 5529.90 / 3916.37 | 1.25 / 16.81 |N/A | **1.13/ 10.60** |N/A|
+| Left join    | 4847.80 / 1155.26 | 27.64 / 3.91 |N/A | ** 20.22/ 2.28** |N/A|
+| Inner join    | 215.77 / 222.05 | 99.89 / 1.13 |N/A | **3.95/ 0.94** |N/A|
+| Outer join    | 3724.74 / 4067.20 | 112.32 / 32.66 |N/A | **87.63/ 25.24** |N/A|
+| Right join    | 5529.90 / 3916.37 | 1.25 / 16.81 |N/A | **1.13/ 10.60** |N/A|
 
 
 * 10M items:
@@ -190,10 +191,10 @@ You can downlad dataset here:
 | Std       | **133.38** | 582.98 | 341.12|579.01 |232.28|
 | The best movies in 1995, 2000 and 2005        | 8745.70 | 244.94 |  N/A |**208.56** | N/A |
 | The worst movies in 1995, 2000 and 2005       | 7552.94 | 213.67 |  N/A |**169.39** | N/A |
-| left join    | 35910.73 /  1380.50 | 341.91 / 143.42 |  N/A |**255.90 / 87.09**| N/A |
-| inner join    | 273.63 / 282.37 | 93.76 / 97.05 |  N/A |**78.53 / 75.11** | N/A |
-| outer join    | 34739.84 / 34726.06 | 2181.72 / 669.98 |  N/A |**1798.23 / 530.40** | N/A |
-| right join    |52969.77 / 34624.85  | 94.64 / 311.74 |  N/A |**78.76 / 242.91**| N/A |
+| Left join    | 35910.73 /  1380.50 | 341.91 / 143.42 |  N/A |**255.90 / 87.09**| N/A |
+| Inner join    | 273.63 / 282.37 | 93.76 / 97.05 |  N/A |**78.53 / 75.11** | N/A |
+| Outer join    | 34739.84 / 34726.06 | 2181.72 / 669.98 |  N/A |**1798.23 / 530.40** | N/A |
+| Right join    |52969.77 / 34624.85  | 94.64 / 311.74 |  N/A |**78.76 / 242.91**| N/A |
 
 * 20M items:
 
@@ -206,10 +207,10 @@ You can downlad dataset here:
 | Std       | **150.43** | 910.86 | 535.15|971.77|357.86|
 | The best movies in 1995, 2000 and 2005        | 16591.48 | 484.87   | N/A | **373.29** | N/A |
 | The worst movies in 1995, 2000 and 2005       | 15012.63 | 421.05   | N/A | **334.33** | N/A |
-| left join    | 69988.08 / 1484.54 | 669.67 / 247.11 | N/A | **501.79 / 173.57** | N/A |
-| inner join    | 344.51 /  366.11 | 190.80 /  190.71 | N/A | **151.23 / 150.09** | N/A |
-| outer join    | 69034.65 /  69001.08 | 6426.18 / 1354.70 | N/A | **5081.73 / 1059.21** | N/A |
-| right join    | 105703.47 /  68888.84  | 189.69 / 617.19 | N/A | **151.99 / 479.14** | N/A |
+| Left join    | 69988.08 / 1484.54 | 669.67 / 247.11 | N/A | **501.79 / 173.57** | N/A |
+| Inner join    | 344.51 /  366.11 | 190.80 /  190.71 | N/A | **151.23 / 150.09** | N/A |
+| Outer join    | 69034.65 /  69001.08 | 6426.18 / 1354.70 | N/A | **5081.73 / 1059.21** | N/A |
+| Right join    | 105703.47 /  68888.84  | 189.69 / 617.19 | N/A | **151.99 / 479.14** | N/A |
 
 * 100M items:
 
@@ -222,13 +223,17 @@ You can downlad dataset here:
 | Std       | **248.68** | 6193.14 | 2772.05 | ERROR|ERROR |
 | The best movies in 1995, 2000 and 2005        | 84433.31 | **2477.05**   | N/A | ERROR|  N/A |
 | The worst movies in 1995, 2000 and 2005       | 79118.32 | **2178.04**   | N/A | ERROR| N/A |
-| left join    | ERROR | **3831.21 / 1330.92** | N/A | ERROR | N/A |
-| inner join    | ERROR | **1074.42 / 1053.31** | N/A | ERROR | N/A |
-| outer join    | ERROR | **38308.51 / 7404.61** | N/A | ERROR | N/A |
-| right join    | ERROR | **1046.55 / 3419.30** | N/A | ERROR | N/A |
+| Left join    | ERROR | **3831.21 / 1330.92** | N/A | ERROR | N/A |
+| Inner join    | ERROR | **1074.42 / 1053.31** | N/A | ERROR | N/A |
+| Outer join    | ERROR | **38308.51 / 7404.61** | N/A | ERROR | N/A |
+| Right join    | ERROR | **1046.55 / 3419.30** | N/A | ERROR | N/A |
 
 
 ### Select-Where
+
+When I checked result times for the best and the worst movies obtained by PyGDF they were too large and too far from Pandas for this kind of operation, beacuse there are databases that operate in GPU-level, as MapD, and run these operations really fast. So I decide testing in depth this case, I take the best movies query and separate it for adding one more sentence in each iteration until build complete query again.
+
+In the other hand I run these queries but changing parameters value (year 1996 instead of 1995, 2001 instead 2000 and so on) to check behavior in this scenario. You can see results below:
 
 * Operations:
   * 1: timestamp >= 788918400
@@ -306,8 +311,8 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 * **Joins**
   * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
   * In all cases Pandas running in computing optimized instances is faster than PyGDF between 3 and 4800 times.
-  * Pandas is faster than PyGDF and very very faster in left, outer and right join.
-  * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in inner and left join (when size(A) < size(B)).
+  * Pandas is faster than PyGDF and very very faster in Left, Outer and Right join.
+  * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in Inner and Left join (when size(A) < size(B)).
 
 
 * **Other Considerations**
@@ -317,10 +322,15 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * I think main benefit of GDF is to mantain dataset in GPU scope and work with other tools in this scope
   * Next step shoul be a PoC using MapD,GDF and H2.io as indicatee in [this. post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/).
 
+### Resources
+* [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
+* [Results and Graphics](https://docs.google.com/a/beeva.com/spreadsheets/d/1zR-dSrEWQFfXHgW_aKL9TUJGIldD-Qnm2c954Z25Ezo/edit?usp=sharing)
+
+
 ### References
 * [A little bit introduction to Pandas](https://jarroba.com/pandas-python-ejemplos-parte-i-introduccion/)
 * [Pandas official docs](https://pandas.pydata.org/pandas-docs/stable/index.html)
-* [A Beginner’s Guide to Optimizing Pandas Code for Speed](https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6)
+* [A BegInner’s Guide to Optimizing Pandas Code for Speed](https://engineering.upside.com/a-begInners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6)
 * [What is GPU Computing](http://www.nvidia.es/object/gpu-computing-es.html)
 * [Post by MapD of GPU Data Frame](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/)
 * [Description of CUDA and Parallel Processiong in GPUs](http://www.nvidia.es/object/cuda-parallel-computing-es.html)
