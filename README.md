@@ -205,16 +205,79 @@ You can downlad dataset here:
 | Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas optimized (p2.xlarge) | Pandas (c4.4xlarge) | Pandas optimized (c4.4xlarge) |
 |-----------|--------------------|--------------------|------------------------------|---------------------|-------------------------------|
 | Count     | **0.49** | 0.54 | N/A | ERROR | N/A |
-| Max       | **80.27** | 2051.41 | 498.01|ERROR| |
-| Min       | **55.30** | 2054.29 | 514.93 | ERROR| |
-| Mean      | **54.63** | 2288.84 | 697.96 | ERROR| |
-| Std       | **248.68** | 6193.14 | 2772.05 | ERROR| |
+| Max       | **80.27** | 2051.41 | 498.01|ERROR|ERROR |
+| Min       | **55.30** | 2054.29 | 514.93 | ERROR| ERROR|
+| Mean      | **54.63** | 2288.84 | 697.96 | ERROR| ERROR|
+| Std       | **248.68** | 6193.14 | 2772.05 | ERROR|ERROR |
 | The best movies in 1995, 2000 and 2005        | 84433.31 | **2477.05**   | N/A | ERROR|  N/A |
 | The worst movies in 1995, 2000 and 2005       | 79118.32 | **2178.04**   | N/A | ERROR| N/A |
 | left join    | ERROR | **3831.21 / 1330.92** | N/A | ERROR | N/A |
 | inner join    | ERROR | **1074.42 / 1053.31** | N/A | ERROR | N/A |
 | outer join    | ERROR | **38308.51 / 7404.61** | N/A | ERROR | N/A |
 | right join    | ERROR | **1046.55 / 3419.30** | N/A | ERROR | N/A |
+
+
+### Select/Where
+
+* Operations:
+  * 1: timestamp >= 788918400
+  * 2: timestamp >= 788918400 and timestamp <= 820454399
+  * 3: (timestamp >= 788918400 and timestamp <= 820454399) or  (timestamp >= 946684800 and timestamp <= 978307199)
+  * 4: (timestamp >= 788918400 and timestamp <= 820454399) or  (timestamp >= 946684800 and timestamp <= 978307199) or (timestamp >= 1104537600 and timestamp <= 1136073599)
+  * 5: ((timestamp >= 788918400 and timestamp <= 820454399) or  (timestamp >= 946684800 and timestamp <= 978307199) or (timestamp >= 1104537600 and timestamp <= 1136073599)) and (rating >=5)
+  * 1B: timestamp >= 820454400
+  * 2B: timestamp >= 820454400 or timestamp <= 852076799
+  * 3B: (timestamp >= 820454400 and timestamp <= 852076799) or  (timestamp >= 978307200 and timestamp <= 1009843199)
+  * 4B: (timestamp >= 820454400 and timestamp <= 852076799) or  (timestamp >= 978307200 and timestamp <= 1009843199) or (timestamp >= 1136073600 and timestamp <= 1167609599)
+  * 5B: ((timestamp >= 820454400 and timestamp <= 852076799) or  (timestamp >= 978307200 and timestamp <= 1009843199) or (timestamp >= 1136073600 and timestamp <= 1167609599)) and (rating >=1)
+
+
+* 1M items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas (c4.4xlarge) |
+|-----------|--------------------|--------------------|---------------------|
+| 1 | 775.43|37.80 | **31.00**|
+| 2 | 147.23 | 25.78| **21.00**|
+| 3 | 154.73|27.15 |**23.00** |
+| 4 | 156.65| 31.89 | **26.00**|
+| 5 |163.54 | 27.07| **23,00** |
+| 1B |144.91 | 23.20| **19.00**|
+| 2B |146.99 | 24.84| **21.00** |
+| 3B | 149.31| 13.75| **12.00**|
+| 4B | 158.22 | 19.70 | **14.00**|
+| 5B | 164.84| 21.50| **16.00**|
+
+
+* 10M items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas (c4.4xlarge) |
+|-----------|--------------------|--------------------|---------------------|
+| 1 |849.13|434.88|**377.00**|
+| 2 |**166.98**|426.40|364.00|
+| 3 |156.68|182.32|**152.00**|
+| 4 |**167.73**|260.66|214.00|
+| 5 |**174.29**|239.22|190.00|
+| 1B |**160.72**|392.97|328.00|
+| 2B |**163.47**|426.63|364.00|
+| 3B |**162.91**|195.87|165.00|
+| 4B |**167.08**|269.15|230.00|
+| 5B |**173.22**|291.76|245.00|
+
+
+* 20M items:
+
+| Operation | PyGDF (p2.xlarge)  | Pandas (p2.xlarge) | Pandas (c4.4xlarge) |
+|-----------|--------------------|--------------------|---------------------|
+| 1 |890.03|821.89|**696.00**|
+| 2 |**207.19**|834.24|706.00|
+| 3 |**180.39**|344.05|276.00|
+| 4 |**191.03**|506.25|404.00|
+| 5 |**192.17**|451.71|354.00|
+| 1B |**205.48**|762.90|643.00|
+| 2B |**205.81**|848.63|705.00|
+| 3B |**182.26**|383.43|316.00|
+| 4B |**189.74**|513.58|411.00|
+| 5B |**206.36**|554.27|442.00|
 
 
 ### Conclusions
