@@ -17,7 +17,7 @@ def timing(f):
         time2 = time.time()
         diff_time = (time2 - time1) * 1000.0
         logging.info('=======================================================')
-        logging.info(' %s tooks %s ms', f.__name__, diff_time)
+	logging.info(' %s tooks %.2f ms', f.__name__, diff_time)
         logging.info('=======================================================')
         return ret
 
