@@ -7,9 +7,10 @@
   * [PyGDF and Miniconda ecosystem](#pygdf-and-miniconda-ecosystem)
 * [Previous Analysis](#previous-analysis)
 * [Experiments](#experiments)
-* [Select-Where](#select-where)
-* [Conclusions](#conclusions)
-* [Conclusions](#conclusions)
+  * [Select-Where](#select-where)
+* [Experiments Conclusions](#experiments-conclusions)
+* [Final Recomendations](#final-recomendations)
+* [Future Lines](#future-lines)
 * [Resources](#resources)
 * [References](#references)
 
@@ -229,9 +230,9 @@ You can download dataset here:
 | Right join    | ERROR | **1046.55 / 3419.30** | N/A | ERROR | N/A |
 
 
-### Select-Where
+#### Select-Where
 
-When I checked result times for the best and the worst movies obtained by PyGDF they were too large and too far from Pandas for this kind of operation, beacuse there are databases that operate in GPU-level, as MapD, and run these operations really fast. So I decide testing in depth this case, I take the best movies query and separate it for adding one more sentence in each iteration until build complete query again.
+When I checked result times for the best and the worst movies obtained by PyGDF they were too large and too far from Pandas for this kind of operation, beacuse there are databases that operate in GPU-level, as MapD, and run these operations really fast. So I decided testing in depth this case, I take the best movies query and separate it for adding one more sentence in each iteration until build complete query again.
 
 In the other hand I run these queries but changing parameters value (year 1996 instead of 1995, 2001 instead 2000 and so on) to check behavior in this scenario. You can see results below:
 
@@ -296,7 +297,7 @@ In the other hand I run these queries but changing parameters value (year 1996 i
 | 5B |**206.36**|554.27|442.00|
 
 
-### Conclusions
+### Experiments Conclusions
 
 As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/), GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate through GPU-PCI-CPU. Maybe this is the main advantage of this project. Using Pandas we can found some advantages and some disadvantage, I talk about them in each of three scenarios:
 
@@ -305,7 +306,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 
 
 * **Filter/Select Where queries**
-  * In this case, when you need process rows PyGDF behavior is very slow, and always process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enough memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is small) and this difference remains stable
+  * In this case, when you need launch a unique query once PyGDF behavior is very slow, and always process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enough memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is small), but when you need use the same query modifiying parameter values, PyGDF still being slow the first time, but following iteration are faster than using Pandas.
 
 
 * **Joins**
@@ -315,16 +316,18 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in Inner and Left join (when size(A) < size(B)).
 
 
-* **Other Considerations**
-  * PyGDF is faster than Pandas in columnar operations.
-  * PyGDF only accepts numerical data.
-  * PyGDF is not a tool for replace Pandas and improve performance.
-  * I think main benefit of GDF is to mantain dataset in GPU scope and work with other tools in this scope
-  * Next step shoul be a PoC using MapD,GDF and H2.io as indicatee in [this. post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/).
+### Final Recomendations
+  * Right now this project is really unripe, so is not recomendable for using in production enviroment yet.
+  * Actually I recomend use PyGDF instead of Pandas in not enviroment, for scenarios where you need process a great quantity of data in columnar way, or launch queries "select-where" type repeatedly changing parameter values.
+  * I think main benefit of GDF is to mantain dataset in GPU scope and work with other tools in this scope.
+
+### Future Lines
+  * Will be interesting follow de project, specially when a stable version will be released.
+  * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicatee in [this. post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
 
 ### Resources
 * [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
-* [Results and Graphics](https://docs.google.com/a/beeva.com/spreadsheets/d/1zR-dSrEWQFfXHgW_aKL9TUJGIldD-Qnm2c954Z25Ezo/edit?usp=sharing)
+* [Experiments results and Graphics](https://docs.google.com/a/beeva.com/spreadsheets/d/1zR-dSrEWQFfXHgW_aKL9TUJGIldD-Qnm2c954Z25Ezo/edit?usp=sharing)
 
 
 ### References
