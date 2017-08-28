@@ -112,8 +112,8 @@ Before start the experiments I read [documentation](http://pygdf.readthedocs.io/
 
 * PyGDF has less operation set than Pandas, for example, it has not operations over rows, just a query function, end the rest operations are over columns.
 * You need Pandas or Numpy to load data from a file, does not load data directly.
-* PyGDF is still in beta phase, there are not a release version yet (will be released on September), so there is not a community following this project yet and is not easy to install.
-* PyGDF neither has not a complete examples or a good documentation of all its features and is not so easy to find them.
+* PyGDF is still in beta phase, there are not a release version yet (until September), so there is not a community following this project yet and is not easy to install.
+* PyGDF lacks complete examples and has poor documentation of all its features and is not so easy to find them.
 
 
 ### Experiments
@@ -324,8 +324,8 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * I think main benefit of GDF is to maintain dataset in GPU scope and work with other tools in this scope.
 
 ### Future Lines
-  * Will be interesting follow de project, specially when a stable version will be released.
-  * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this. post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
+  * Will be interesting follow the project, specially when a stable version will be released.
+  * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
 
 ### Resources
 * [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
