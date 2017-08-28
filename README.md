@@ -162,6 +162,8 @@ You can download dataset here:
 * [Ratings 20M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-20M.dat)
 * [Ratings 100M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-100M.dat)
 
+* **Note** : *users file used correspond to 1M movies files, I use the same file because others dataset don’t have their own users file, but these ratings files has more than 6k users*
+
  These are experiments results time processing (milliseconds) for each operation. The best time of each of them is marked as bold:
 
 * 1M items:
