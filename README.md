@@ -341,7 +341,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 * [NVIDIA Tesla homepage](http://www.nvidia.es/object/tesla-high-performance-computing-es.html)
 * [Apache Arrow official website](https://arrow.apache.org/)
 * [PyGDF repository in GitHub](https://github.com/gpuopenanalytics/pygdf)
-* [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/api.html)
+* [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/index.html)
 * [Wiki about Gpu Data Frame and its libraries](https://github.com/gpuopenanalytics/libgdf/wiki)
 * [MovieLens dataset website](https://grouplens.org/datasets/movielens/)
 * [Article about efficient data transfer through zero copy](https://www.ibm.com/developerworks/library/j-zerocopy/)
