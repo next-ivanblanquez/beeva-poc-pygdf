@@ -9,7 +9,7 @@
 * [Experiments](#experiments)
   * [Select-Where](#select-where)
 * [Experiments Conclusions](#experiments-conclusions)
-* [Final Recomendations](#final-recomendations)
+* [Final Recommendations](#final-recommendations)
 * [Future Lines](#future-lines)
 * [Resources](#resources)
 * [References](#references)
@@ -316,7 +316,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in Inner and Left join (when size(A) < size(B)).
 
 
-### Final Recomendations
+### Final Recommendations
   * Right now this project is really unripe, so is not recomendable for using in production enviroment yet.
   * Actually I recomend use PyGDF instead of Pandas in not enviroment, for scenarios where you need process a great quantity of data in columnar way, or launch queries "select-where" type repeatedly changing parameter values.
   * I think main benefit of GDF is to mantain dataset in GPU scope and work with other tools in this scope.
