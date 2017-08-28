@@ -111,7 +111,7 @@ Please follow these steps to complete de installation:
 Before start the experiments I read [documentation](http://pygdf.readthedocs.io/en/latest/api.html), looking for example and user arround the Internet, official repositories and these are conclusions about that:
 
 * PyGDF has less operation set than Pandas, for example, it has not operations over rows, just a query function, end the rest operations are over columns.
-* You need Pandas or Numpy to load data, does not load data directly.
+* You need Pandas or Numpy to load data from a file, does not load data directly.
 * PyGDF is still in beta phase, there are not a release version yet (will be released on september), so there is not a community following this project yet and is not easy to install.
 * PyGDF neither has not a complete examples or a good documentation of all its features and is not so easy to find them.
 
