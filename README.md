@@ -17,7 +17,7 @@
 ### Introduction
 Proof of Concept with PyGDF at BEEVA.
 
-Comparison between Pandas and PyGDF, documentation, resources, developer community, learning curve, easy to use and performance behavior at the same processes over the same dataset.
+Comparison between Pandas and PyGDF, documentation, resources, developer community, learning curve, easy to use and performance behaviour at the same processes over the same dataset.
 
 ### Installation
 
@@ -25,9 +25,9 @@ Comparison between Pandas and PyGDF, documentation, resources, developer communi
 
 To use PyGDF we need a machine with NVIDIA graphic card and CUDA support, in this case I use an AWS EC2 instance to install PyGDF. Instance type is [p2.xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX) and with CPU [Intel Xeon E5 2686 v4](http://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2686%20v4.html).
 
-On the other hand I tests Pandas code in AWS EC2 instance optimized to computing. Instance type is  [c4.4xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX) and with CPU [Intel Xeon E5 2666 v3](http://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2666%20v3.html). I decided use the same software in both instances to get better results in the comparison.
+On the other hand I test Pandas code in AWS EC2 instance optimized to computing. Instance type is  [c4.4xlarge](https://aws.amazon.com/es/ec2/instance-types) based on a [Deep Learning AMI Ubuntu Version](https://aws.amazon.com/marketplace/pp/B06VSPXKDX) and with CPU [Intel Xeon E5 2666 v3](http://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2666%20v3.html). I decided use the same software in both instances to get better results in the comparison.
 
-This type of AMI's **has a problem**, when you reboot or stop instance and restart it again, CUDA drivers dissapears due to unattended upgrades. **To solves this** you should change upgrades configuration following steps below:
+This type of AMI's **has a problem**, when you reboot or stop instance and restart it again, CUDA drivers disappears due to unattended upgrades. **To solves this** you should change upgrades configuration following steps below:
 
 ```
 sudo vim /etc/apt/apt.conf.d/20auto-upgrades
@@ -56,7 +56,7 @@ APT::Periodic::AutocleanInterval "0";
 ```
 
 
-Now when you reboot or stop and reestart instances, if you run *"nvidia-smi"* command you can get information about GPU instead of a message saying that driver is not installed.
+Now when you reboot or stop and restart instances, if you run *"nvidia-smi"* command you can get information about GPU instead of a message saying that driver is not installed.
 
 ```
 nvidia-smi -q | head
@@ -80,7 +80,7 @@ PyGDF needs Python and [Anaconda](https://www.continuum.io/), but you can use [M
 Please follow these steps to complete de installation:
 1. Clone pygdf code from github reposotiory:
 ```
-  git clone https://github.com/gpuopenanalytics/pygdf.git (por https)
+  git clone https://github.com/gpuopenanalytics/pygdf.git (via https)
 ```  
 
 2. Install Miniconda:
@@ -90,40 +90,40 @@ Please follow these steps to complete de installation:
 ```
   After this you need reboot terminal to apply changes into the path.
 
-3. Make virtual enviroment. In folder when you clone pygdf run this code
+3. Make virtual environment. In folder when you clone pygdf run this code
 ```
   cd pygdf
   conda-env create --name pygdf_dev --file conda_environments/testing_py35.yml
 ```
 
-4. Install PyGDF. And then, int the folder before, run code below:
+4. Install PyGDF. And then, in the folder before, run code below:
 ```
   /home/ubuntu/miniconda2/envs/pygdf_dev/bin/python3.5 setup.py install
 ```
 
-5. To activate and deactivate virtual enviroment run this code:
+5. To activate and deactivate virtual environment run this code:
 ```
   source activate pygdf_dev
   source deactivate pygdf_dev
 ```
 ### Previous Analysis
 
-Before start the experiments I read [documentation](http://pygdf.readthedocs.io/en/latest/api.html), looking for example and user arround the Internet, official repositories and these are conclusions about that:
+Before start the experiments I read [documentation](http://pygdf.readthedocs.io/en/latest/api.html), looking for example and user around the Internet, official repositories and these are conclusions about that:
 
 * PyGDF has less operation set than Pandas, for example, it has not operations over rows, just a query function, end the rest operations are over columns.
 * You need Pandas or Numpy to load data from a file, does not load data directly.
-* PyGDF is still in beta phase, there are not a release version yet (will be released on september), so there is not a community following this project yet and is not easy to install.
+* PyGDF is still in beta phase, there are not a release version yet (will be released on September), so there is not a community following this project yet and is not easy to install.
 * PyGDF neither has not a complete examples or a good documentation of all its features and is not so easy to find them.
 
 
 ### Experiments
 
-After making prevous analysis I decide to run three blocks of operations through to dataset (you can get code [here](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/tree/master/code)):
- * **Statistical operations through columns** (Count, Maximum, Minimun, Mean and Standard deviation).
+After making previous analysis I decide to run three blocks of operations through to dataset (you can get code [here](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/tree/master/code)):
+ * **Statistical operations through columns** (Count, Maximum, Minimum, Mean and Standard deviation).
  * **Filter(Select-Where) operations with conditions in two columns** (The best and the worst movies in years 1995, 2000 and 2005).
- * **Join operations between two datasets**. In this case at first, I run join on ratings and users where ratings size is always greater than users, and then I turn arround the join and use users at first dataset where users size always is less than ratings. I did it to campare behavior int different cases.
+ * **Join operations between two datasets**. In this case at first, I run join on ratings and users where ratings size is always greater than users, and then I turn around the join and use users at first dataset where users size always is less than ratings. I did it to campare behaviour in different cases.
 
- I used two dataset that are structures with information about users, movies and rating that users assignt to each movie, see example below:
+ I used two datasets that are structures with information about users, movies and rating that users assign to each movie, see example below:
 * users
 ```
  user_id    age    ocupation     zip
@@ -232,9 +232,9 @@ You can download dataset here:
 
 #### Select-Where
 
-When I checked result times for the best and the worst movies obtained by PyGDF they were too large and too far from Pandas for this kind of operation, beacuse there are databases that operate in GPU-level, as MapD, and run these operations really fast. So I decided testing in depth this case, I take the best movies query and separate it for adding one more sentence in each iteration until build complete query again.
+When I checked result times for the best and the worst movies obtained by PyGDF they were too large and too far from Pandas for this kind of operation, because there are databases that operate in GPU-level, as MapD, and run these operations really fast. So I decided testing in depth this case, I take the best movies query and separate it for adding one more sentence in each iteration until build complete query again.
 
-In the other hand I run these queries but changing parameters value (year 1996 instead of 1995, 2001 instead 2000 and so on) to check behavior in this scenario. You can see results below:
+In the other hand I run these queries but changing parameters value (year 1996 instead of 1995, 2001 instead 2000 and so on) to check behaviour in this scenario. You can see results below:
 
 * Operations:
   * 1: timestamp >= 788918400
@@ -306,24 +306,24 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 
 
 * **Filter/Select Where queries**
-  * In this case, when you need launch a unique query once PyGDF behavior is very slow, and always process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enough memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is small), but when you need use the same query modifiying parameter values, PyGDF still being slow the first time, but following iteration are faster than using Pandas.
+  * In this case, when you need launch a unique query once PyGDF behavior is very slow, and always process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enough memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is small), but when you need use the same query modifying parameter values, PyGDF still being slow the first time, but following iteration are faster than using Pandas.
 
 
 * **Joins**
   * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
   * In all cases Pandas running in computing optimized instances is faster than PyGDF between 3 and 4800 times.
-  * Pandas is faster than PyGDF and very very faster in Left, Outer and Right join.
-  * Pandas still fater than PyGDF but when dataset growing up that difference decreases specially in Inner and Left join (when size(A) < size(B)).
+  * Pandas is faster than PyGDF and very faster in Left, Outer and Right join.
+  * Pandas still faster than PyGDF but when dataset growing up that difference decreases specially in Inner and Left join (when size(A) < size(B)).
 
 
 ### Final Recommendations
-  * Right now this project is really unripe, so is not recomendable for using in production enviroment yet.
-  * Actually I recomend use PyGDF instead of Pandas in not enviroment, for scenarios where you need process a great quantity of data in columnar way, or launch queries "select-where" type repeatedly changing parameter values.
-  * I think main benefit of GDF is to mantain dataset in GPU scope and work with other tools in this scope.
+  * Right now this project is really unripe, so is not recommendable for using in production environment yet.
+  * Actually I recommend use PyGDF instead of Pandas in not environment, for scenarios where you need process a great quantity of data in columnar way, or launch queries "select-where" type repeatedly changing parameter values.
+  * I think main benefit of GDF is to maintain dataset in GPU scope and work with other tools in this scope.
 
 ### Future Lines
   * Will be interesting follow de project, specially when a stable version will be released.
-  * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicatee in [this. post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
+  * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this. post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
 
 ### Resources
 * [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
@@ -336,7 +336,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 * [A BegInner’s Guide to Optimizing Pandas Code for Speed](https://engineering.upside.com/a-begInners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6)
 * [What is GPU Computing](http://www.nvidia.es/object/gpu-computing-es.html)
 * [Post by MapD of GPU Data Frame](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/)
-* [Description of CUDA and Parallel Processiong in GPUs](http://www.nvidia.es/object/cuda-parallel-computing-es.html)
+* [Description of CUDA and Parallel Processing in GPUs](http://www.nvidia.es/object/cuda-parallel-computing-es.html)
 * [Example of how GDF Accelerate data analytics](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/)
 * [NVIDIA Tesla homepage](http://www.nvidia.es/object/tesla-high-performance-computing-es.html)
 * [Apache Arrow official website](https://arrow.apache.org/)
