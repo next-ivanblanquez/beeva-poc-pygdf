@@ -344,6 +344,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 * [Apache Arrow official website](https://arrow.apache.org/)
 * [PyGDF repository in GitHub](https://github.com/gpuopenanalytics/pygdf)
 * [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/index.html)
+* [Conda docs](https://conda.io/docs/)
 * [Wiki about Gpu Data Frame and its libraries](https://github.com/gpuopenanalytics/libgdf/wiki)
 * [MovieLens dataset website](https://grouplens.org/datasets/movielens/)
 * [Article about efficient data transfer through zero copy](https://www.ibm.com/developerworks/library/j-zerocopy/)
