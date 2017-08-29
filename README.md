@@ -1,6 +1,7 @@
 # beeva-poc-pygdf
 
 ## INDEX
+* [Presentation](#presentation)
 * [Introduction](#introduction)
 * [Installation](#installation)
   * [Amazon Web Services EC2 instances and AMIs](#amazon-web-services-ec2-instances-and-amis)
@@ -9,15 +10,24 @@
 * [Experiments](#experiments)
   * [Select-Where](#select-where)
 * [Experiments Conclusions](#experiments-conclusions)
+* [what are the limits](#what-are-the-limits)
 * [Final Recommendations](#final-recommendations)
 * [Future Lines](#future-lines)
 * [Resources](#resources)
 * [References](#references)
 
-### Introduction
+### Presentation
 Proof of Concept with PyGDF at BEEVA.
 
-Comparison between Pandas and PyGDF, documentation, resources, developer community, learning curve, easy to use and performance behaviour at the same processes over the same dataset.
+High Performance Computing in GPU-level is booming due to  ability to solve complex problems in reduced times. It is time to research new tools and data structure.
+
+PoC is focused Python tools working with data structures in GPU-level.
+
+The goal is to research about GDF and how it works in a Python ecosystem and make comparison between Pandas and PyGDF, documentation, resources, developer community, learning curve, easy to use and performance.
+
+### Introduction
+
+TODO:
 
 ### Installation
 
@@ -162,7 +172,7 @@ You can download dataset here:
 * [Ratings 20M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-20M.dat)
 * [Ratings 100M](https://s3-eu-west-1.amazonaws.com/poc-pygdf/ratings-100M.dat)
 
-* **Note** : *users file used correspond to 1M movies files, I use the same file because others dataset don’t have their own users file, but these ratings files has more than 6k users*
+* **Note** : *Ratings has variable number of users. But the unique users.dat file corresponding to 1M dataset was used.*
 
  These are experiments results time processing (milliseconds) for each operation. The best time of each of them is marked as bold:
 
@@ -304,19 +314,24 @@ In the other hand I run these queries but changing parameters value (year 1996 i
 As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/), GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate through GPU-PCI-CPU. Maybe this is the main advantage of this project. Using Pandas we can found some advantages and some disadvantage, I talk about them in each of three scenarios:
 
 * **Statistical operations through columns**
-  * GDF implements [Apache Arrow](https://arrow.apache.org/) specification allocating data in columns, so processes looping through columns are faster using PyGDF than using Pandas (between 5 and 20 times faster), except when data size is small, because time to transfer data from disk to gpu is greater than time to process these data. The more data there is, the more difference.
+  * GDF implements [Apache Arrow](https://arrow.apache.org/) specification allocating data in columns, so processes looping through columns are faster using PyGDF than using Pandas (between 5 and 20 times faster), except when data size is small, because time to transfer data from disk to gpu is greater than time to process these data. 
+  * PyGDF is Optimized for big datasets, the more data there is, the more difference.
 
 
 * **Filter/Select Where queries**
   * In this case, when you need launch a unique query once PyGDF behavior is very slow, and always process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enough memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is small), but when you need use the same query modifying parameter values, PyGDF still being slow the first time, but following iteration are faster than using Pandas.
+  * PyGDF is Optimized for big datasets, the more data there is, the more difference.
 
 
 * **Joins**
   * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
-  * In all cases Pandas running in computing optimized instances is faster than PyGDF between 3 and 4800 times.
+  * In all cases Pandas code running in computing optimized instances is faster than PyGDF between 3 and 4800 times.
   * Pandas is faster than PyGDF and very faster in Left, Outer and Right join.
   * Pandas still faster than PyGDF but when dataset growing up that difference decreases specially in Inner and Left join (when size(A) < size(B)).
 
+### What are the limits?
+
+TODO
 
 ### Final Recommendations
   * Right now this project is really unripe, so is not recommendable for using in production environment yet.
