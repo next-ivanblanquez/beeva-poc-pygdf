@@ -340,6 +340,7 @@ TODO
 
 ### Future Lines
   * Will be interesting follow the project, specially when a stable version will be released.
+  * Launch the same tests in instances type p2.8xlarge and p2.16xlarge increasing size of datasets to know the really upper limit using AWS infrastructure.
   * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
 
 ### Resources
