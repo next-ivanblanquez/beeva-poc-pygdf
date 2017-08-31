@@ -3,6 +3,9 @@
 ## INDEX
 * [Presentation](#presentation)
 * [Introduction](#introduction)
+  * [What is GDF?](#what-is-gdf?)
+  * [What is PyGDF?](#what-is-pygdf?)
+* [Prsentation](#presentation)
 * [Installation](#installation)
   * [Amazon Web Services EC2 instances and AMIs](#amazon-web-services-ec2-instances-and-amis)
   * [PyGDF and Miniconda ecosystem](#pygdf-and-miniconda-ecosystem)
@@ -27,7 +30,24 @@ The goal is to research about GDF and how it works in a Python ecosystem and mak
 
 ### Introduction
 
-TODO:
+#### What is GDF?
+GDF (Gpu Data Frame) is the first step of [GOAI](https://github.com/gpuopenanalytics)  to build an end-to-end platform GPU-level. It's a data structure that allows data interchanging process running in GPU.
+
+Image below shows actual architecture without GDF and latency to trasnferring data from/to CPU:
+
+![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/gdf-less_architecture.png "GDF-less Architecture")
+
+
+Image below shows actual architecture with GDF and how latency to trasnferring data from/to CPU disappears:
+
+![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/gdf_architecture.png "GDF Architecture")
+
+
+#### What is PyGDF?
+
+PyGDF is an GDF api implementation in Python because currently, thet don't support pip install yet. So you should setup with conda using [Miniconda](https://github.com/gpuopenanalytics/pygdf#setup-with-conda) instaed of using a complete [Anaconda](https://www.anaconda.com/what-is-anaconda/) environment, as you can see in PyGDF Github repository.
+
+![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/GPU_df_arch_diagram.png "PyGDF Running on Anaconda environment")
 
 ### Installation
 
@@ -120,10 +140,11 @@ Please follow these steps to complete de installation:
 
 Before start the experiments I read [documentation](http://pygdf.readthedocs.io/en/latest/api.html), looking for example and user around the Internet, official repositories and these are conclusions about that:
 
-* PyGDF has less operation set than Pandas, for example, it has not operations over rows, just a query function, end the rest operations are over columns.
-* You need Pandas or Numpy to load data from a file, does not load data directly.
-* PyGDF is still in beta phase, there are not a release version yet (until September), so there is not a community following this project yet and is not easy to install.
-* PyGDF lacks complete examples and has poor documentation of all its features and is not so easy to find them.
+* It is in beta phase, so there is not a release version yet (until September).
+* It is no easy to install beacase currently doesn't support pip install.
+* Doesn't load data from a file directly. You need Pandas or Numpy to load data to do it.
+* It has a poor operation set, has not operations over rows, just a query function, and the rest are over columns.
+* Poor documentation. Lacks complete examples and functions descriptions.
 
 
 ### Experiments
@@ -187,7 +208,7 @@ You can download dataset here:
 | Std       | 133.02 | 40.75   | 19.84 |34.93 |**16.32**|
 | The best movies in 1995, 2000 and 2005        | 11188.71 | 39.91   | N/A | **25.78**|N/A|
 | The worst movies in 1995, 2000 and 2005       | 974.27 | 20.27   | N/A |**16.79** |N/A|
-| Left join    | 4847.80 / 1155.26 | 27.64 / 3.91 |N/A | ** 20.22/ 2.28** |N/A|
+| Left join    | 4847.80 / 1155.26 | 27.64 / 3.91 |N/A | **20.22/ 2.28** |N/A|
 | Inner join    | 215.77 / 222.05 | 99.89 / 1.13 |N/A | **3.95/ 0.94** |N/A|
 | Outer join    | 3724.74 / 4067.20 | 112.32 / 32.66 |N/A | **87.63/ 25.24** |N/A|
 | Right join    | 5529.90 / 3916.37 | 1.25 / 16.81 |N/A | **1.13/ 10.60** |N/A|
@@ -314,34 +335,39 @@ In the other hand I run these queries but changing parameters value (year 1996 i
 As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/), GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate through GPU-PCI-CPU. Maybe this is the main advantage of this project. Using Pandas we can found some advantages and some disadvantage, I talk about them in each of three scenarios:
 
 * **Statistical operations through columns**
-  * GDF implements [Apache Arrow](https://arrow.apache.org/) specification allocating data in columns, so processes looping through columns are faster using PyGDF than using Pandas (between 5 and 20 times faster), except when data size is small, because time to transfer data from disk to gpu is greater than time to process these data. 
-  * PyGDF is Optimized for big datasets, the more data there is, the more difference.
+  * GDF implements [Apache Arrow](https://arrow.apache.org/) specification, a Columnar In-Memory data storage that enables execution engines to take advantage of the latest SIMD allows [zero-copy](https://www.ibm.com/developerworks/library/j-zerocopy/) reads for lightning-fast data access.
+  * Processes looping through columns are faster using PyGDF than using Pandas (between 5 and 20 times faster), except when data size is small, because time to transfer data from cpu to gpu is greater than time to process these data. 
+  * PyGDF is Optimized for big datasets. It scales much better (at least until 20M). But it's not efficient with 1M or smaller.
 
 
 * **Filter/Select Where queries**
-  * In this case, when you need launch a unique query once PyGDF behavior is very slow, and always process is faster using instance computing optimized (proof for data with 100M of items is not posible to run in c4.4xlarge instance because there is not enough memory to load data). The difference is between 40 and 60 times faster in Pandas (more with dataset is small), but when you need use the same query modifying parameter values, PyGDF still being slow the first time, but following iteration are faster than using Pandas.
-  * PyGDF is Optimized for big datasets, the more data there is, the more difference.
+  * In this case, when you need launch a unique query once PyGDF behavior is very slow, because CUDA needs additional time to run in the first execution. First queries on PyGDF increase execution times 40% average.
+  * Running the same query several times changing parameters values, PyGDF is faster than Pandas. 
+  * Like operations through columns, PyGDF is Optimized for big datasets here. It scales much better (at least until 20M). But it's not efficient with 1M or smaller.
 
 
 * **Joins**
-  * I ran two different proofs here, when join a dataset small with bigger one and the opposite case.
-  * In all cases Pandas code running in computing optimized instances is faster than PyGDF between 3 and 4800 times.
-  * Pandas is faster than PyGDF and very faster in Left, Outer and Right join.
-  * Pandas still faster than PyGDF but when dataset growing up that difference decreases specially in Inner and Left join (when size(A) < size(B)).
+  * I run two different proofs here, when join a dataset small with bigger one and the opposite case.
+  * Always Pandas is faster than PyGDF for this kind of operations.
+
 
 ### What are the limits?
 
-TODO
+![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/limits.png "PyGDF Limits")
+
 
 ### Final Recommendations
-  * Right now this project is really unripe, so is not recommendable for using in production environment yet.
-  * Actually I recommend use PyGDF instead of Pandas in not environment, for scenarios where you need process a great quantity of data in columnar way, or launch queries "select-where" type repeatedly changing parameter values.
-  * I think main benefit of GDF is to maintain dataset in GPU scope and work with other tools in this scope.
+  * Project are immature, is not recommendable for using in production environment yet.
+  * Is a good option for launching "select-where"-like queries repeatedly changing parameter values.
+Right now this project is really unripe, so is not recommendable for using in production environment yet.
+  * For columnar processing. When you need process a great quantity of data in columnar way.
+  * When you need to works in GPU scope. Main benefit of GDF is to maintain datasets in GPU scope and work with several tools in this scope.
 
 ### Future Lines
   * Will be interesting follow the project, specially when a stable version will be released.
   * Launch the same tests in instances type p2.8xlarge and p2.16xlarge increasing size of datasets to know the really upper limit using AWS infrastructure.
   * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
+ * 
 
 ### Resources
 * [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
@@ -361,6 +387,8 @@ TODO
 * [PyGDF repository in GitHub](https://github.com/gpuopenanalytics/pygdf)
 * [PyGDF api reference](http://pygdf.readthedocs.io/en/latest/index.html)
 * [Conda docs](https://conda.io/docs/)
+* [Miniconda website](https://conda.io/miniconda.html)
+* [Anaconda website](https://www.anaconda.com/what-is-anaconda/)
 * [Wiki about Gpu Data Frame and its libraries](https://github.com/gpuopenanalytics/libgdf/wiki)
 * [MovieLens dataset website](https://grouplens.org/datasets/movielens/)
 * [Article about efficient data transfer through zero copy](https://www.ibm.com/developerworks/library/j-zerocopy/)
