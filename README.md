@@ -13,7 +13,7 @@
 * [Experiments](#experiments)
   * [Select-Where](#select-where)
 * [Experiments Conclusions](#experiments-conclusions)
-* [what are the limits](#what-are-the-limits)
+* [What are the limits](#what-are-the-limits)
 * [Final Recommendations](#final-recommendations)
 * [Future Lines](#future-lines)
 * [Resources](#resources)
