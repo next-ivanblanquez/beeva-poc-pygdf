@@ -6,6 +6,8 @@ logging.basicConfig(filename='/home/ubuntu/pygdf/logs/poc_pandas.log', level=log
 
 USERS = '/home/ubuntu/pygdf/input_files/users.dat'
 RATINGS = '/home/ubuntu/pygdf/input_files/ratings-1M.dat'
+
+
 # RATINGS = '/home/ubuntu/pygdf/input_files/ratings-10M.dat'
 # RATINGS = '/home/ubuntu/pygdf/input_files/ratings-20M.dat'
 # RATINGS = '/home/ubuntu/pygdf/input_files/ratings-100M.dat'
@@ -17,11 +19,10 @@ def timing(f):
         time2 = time.time()
         diff_time = (time2 - time1) * 1000.0
         logging.info('=======================================================')
-	logging.info(' %s tooks %.2f ms', f.__name__, diff_time)
+        logging.info(' %s tooks %.2f ms', f.__name__, diff_time)
         logging.info('=======================================================')
         return ret
-
-    return wrap
+return wrap
 
 
 @timing
