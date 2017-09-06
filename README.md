@@ -12,6 +12,7 @@
 * [Previous Analysis](#previous-analysis)
 * [Experiments](#experiments)
   * [Select-Where](#select-where)
+  * [Queries cached(#queries-cached)
 * [Experiments Conclusions](#experiments-conclusions)
 * [what are the limits](#what-are-the-limits)
 * [Final Recommendations](#final-recommendations)
@@ -330,6 +331,72 @@ In the other hand I run these queries but changing parameters value (year 1996 i
 | 5B |**206.36**|554.27|442.00|
 
 
+#### Queries cached
+
+Navigate through the code I find this comment for queries compilation:
+
+```
+
+This generates a CUDA Kernel for the query expression.  The kernel is
+cached for reuse.  All variable names, including both references to
+columns and references to variables in the calling environment, in the
+expression are passed as argument to the kernel. Thus, the kernel is
+reusable on any dataframe and in any environment.
+
+```
+
+So will be the same behaviour for all functions. I decide to proof with columnar and join operation, making a code that run the same functions over three datasets twice, and these are results:
+
+* 1M items:
+
+| Operation | PyGDF Iteration 1  | PyGDF Iteration 2 |
+|-----------|--------------------|-------------------|
+| Count     | 0.30 | 0.34 |
+| Max       | 32.08 |  4.33|
+| Min       | 31.19 | 5.01 |
+| Mean      | 3125.61  | 4.19 |
+| Std       | 155.44  |  10.17|
+| Left join    | 1246.42  | 218.30 |
+| Inner join    |1003.58 |116.01|
+| Outer join    | 1253.73| 208.67|
+| Right join    | 10112.24| 118.99|
+
+* 10M items:
+
+| Operation | PyGDF Iteration 1  | PyGDF Iteration 2 |
+|-----------|--------------------|-------------------|
+| Count     | 0.37 | 0.52 |
+| Max       | 9.95 |  10.15|
+| Min       | 9.81 | 9.90 |
+| Mean      | 9.16  | 20.25 |
+| Std       | 23.23  |  23.40|
+| Left join    | 614.41  | 410.58 |
+| Inner join    |361.98 |180.27|
+| Outer join    | 592.62| 368.52|
+| Right join    | 350.51| 178.25|
+
+* 20M items:
+
+| Operation | PyGDF Iteration 1  | PyGDF Iteration 2 |
+|-----------|--------------------|-------------------|
+| Count     | 0.45 | 1.38 |
+| Max       | 17.54 |  17.74|
+| Min       | 16.71 | 17.68 |
+| Mean      | 16.88  | 16.87 |
+| Std       | 41.85  |  41.02|
+| Left join    | 648.28  | 634.02 |
+| Inner join    | 268.80 |259.98|
+| Outer join    | 661.51 | 632.11|
+| Right join    | 260.33 | 265.75|
+
+
+As you can see, time decrease after run first time each operation, even in the same iteratio you operate over other dataser, time is less than first time over a smaller dataset.
+
+So it seems that PyGDF is able to cache all operations and achive better time the next times you run them, even a bigger dataset.
+
+Even with warm-up fase and obtaining a better performance, Pandas still been faster in join operations (see result for Pandas code running un c4.4xlarge instance)
+
+
 ### Experiments Conclusions
 
 As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/), GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate through GPU-PCI-CPU. Maybe this is the main advantage of this project. Using Pandas we can found some advantages and some disadvantage, I talk about them in each of three scenarios:
@@ -358,7 +425,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 
 ### Final Recommendations
   * Project are immature, is not recommendable for using in production environment yet.
-  * Is a good option for launching "select-where"-like queries repeatedly changing parameter values.
+  * Is a good option for run operations iteratively and make a warm-up scenario over a lightweight dataset and prepare system to get the best performance.
 Right now this project is really unripe, so is not recommendable for using in production environment yet.
   * For columnar processing. When you need process a great quantity of data in columnar way.
   * When you need to works in GPU scope. Main benefit of GDF is to maintain datasets in GPU scope and work with several tools in this scope.
@@ -367,7 +434,7 @@ Right now this project is really unripe, so is not recommendable for using in pr
   * Will be interesting follow the project, specially when a stable version will be released.
   * Launch the same tests in instances type p2.8xlarge and p2.16xlarge increasing size of datasets to know the really upper limit using AWS infrastructure.
   * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
- * 
+  * About limits, its a good idea test how many queries is able to cached.
 
 ### Resources
 * [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
@@ -393,3 +460,4 @@ Right now this project is really unripe, so is not recommendable for using in pr
 * [MovieLens dataset website](https://grouplens.org/datasets/movielens/)
 * [Article about efficient data transfer through zero copy](https://www.ibm.com/developerworks/library/j-zerocopy/)
 * [AWS User Guide for Accelerated Computing Instances](http://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/accelerated-computing-instances.html)
+
