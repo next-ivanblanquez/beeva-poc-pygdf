@@ -14,7 +14,7 @@
   * [Select-Where](#select-where)
   * [Queries cached(#queries-cached)
 * [Experiments Conclusions](#experiments-conclusions)
-* [what are the limits](#what-are-the-limits)
+* [What are the limits](#what-are-the-limits)
 * [Final Recommendations](#final-recommendations)
 * [Future Lines](#future-lines)
 * [Resources](#resources)
@@ -46,7 +46,7 @@ Image below shows actual architecture with GDF and how latency to trasnferring d
 
 #### What is PyGDF?
 
-PyGDF is an GDF api implementation in Python because currently, thet don't support pip install yet. So you should setup with conda using [Miniconda](https://github.com/gpuopenanalytics/pygdf#setup-with-conda) instaed of using a complete [Anaconda](https://www.anaconda.com/what-is-anaconda/) environment, as you can see in PyGDF Github repository.
+PyGDF is an GDF api implementation in Python. They don't support pip install yet, so you should setup with conda using [Miniconda](https://github.com/gpuopenanalytics/pygdf#setup-with-conda) instaed of using a complete [Anaconda](https://www.anaconda.com/what-is-anaconda/) environment, as you can see in PyGDF Github repository.
 
 ![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/GPU_df_arch_diagram.png "PyGDF Running on Anaconda environment")
 
