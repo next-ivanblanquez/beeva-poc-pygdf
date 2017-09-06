@@ -12,7 +12,7 @@
 * [Previous Analysis](#previous-analysis)
 * [Experiments](#experiments)
   * [Select-Where](#select-where)
-  * [Queries cached(#queries-cached)
+  * [Queries cached](#queries-cached)
 * [Experiments Conclusions](#experiments-conclusions)
 * [What are the limits](#what-are-the-limits)
 * [Final Recommendations](#final-recommendations)
