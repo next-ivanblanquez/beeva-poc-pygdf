@@ -433,7 +433,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * Will be interesting follow the project, specially when a stable version will be released.
   * Launch the same tests in instances type p2.8xlarge and p2.16xlarge increasing size of datasets to know the really upper limit using AWS infrastructure.
   * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
-  * About limits, it is a good idea test how many queries is able to cached.
+  * About limits, it is a good idea to check how many queries is able to cached.
 
 ### Resources
 * [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
