@@ -426,7 +426,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 ### Final Recommendations
   * Project are immature, is not recommendable for using in production environment yet.
   * Is a good option for run operations iteratively and make a warm-up scenario over a lightweight dataset and prepare system to get the best performance.
-  * Right now this project is really unripe, so is not recommendable for using in production environment yet.
+  * Right now this project is really immature, so is not recommendable for using in production environment yet.
   * For columnar processing. When you need process a great quantity of data in columnar way.
   * When you need to works in GPU scope. Main benefit of GDF is to maintain datasets in GPU scope and work with several tools in this scope.
 
