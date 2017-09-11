@@ -3,10 +3,10 @@
 ## INDEX
 * [Presentation](#presentation)
 * [Introduction](#introduction)
-  * [What is GDF?](#what-is-gdf?)
-	  * [What is Apache Arrow?](#what-is-apache-arrow?)
+  * [What is GDF?](#what-is-gdf)
+	  * [What is Apache Arrow?](#what-is-apache-arrow)
 	  * [GDF Architecture](#gdf-architecture)
-  * [What is PyGDF?](#what-is-pygdf?)
+  * [What is PyGDF?](#what-is-pygdf)
 * [Prsentation](#presentation)
 * [Installation](#installation)
   * [Amazon Web Services EC2 instances and AMIs](#amazon-web-services-ec2-instances-and-amis)
