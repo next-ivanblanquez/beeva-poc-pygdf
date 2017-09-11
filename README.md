@@ -5,7 +5,7 @@
 * [Introduction](#introduction)
   * [What is GDF?](#what-is-gdf?)
 	  * [What is Apache Arrow?](#what-is-apache-arrow?)
-	  *[GDF Architecture](#gdf-architecture)
+	  * [GDF Architecture](#gdf-architecture)
   * [What is PyGDF?](#what-is-pygdf?)
 * [Prsentation](#presentation)
 * [Installation](#installation)
