@@ -35,7 +35,7 @@ The goal is to research about GDF and how it works in a Python ecosystem and mak
 ### Introduction
 
 #### What is GDF?
-GDF (Gpu Data Frame) is the first step of [GOAI](https://github.com/gpuopenanalytics)  to build an end-to-end platform GPU-level. It's a data structure that allows data interchanging process running in GPU. Based on [Apache Arrow](https://arrow.apache.org/) specification
+GDF (Gpu Data Frame) is the first step of [GOAI](http://gpuopenanalytics.com/)  to build an end-to-end platform GPU-level. It's a data structure that allows data interchanging process running in GPU. Based on [Apache Arrow](https://arrow.apache.org/) specification
 
 
 ##### What is Apache Arrow?
