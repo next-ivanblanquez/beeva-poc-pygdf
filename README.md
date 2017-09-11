@@ -4,6 +4,7 @@
 * [Presentation](#presentation)
 * [Introduction](#introduction)
   * [What is GDF?](#what-is-gdf?)
+	  * [What is Apache Arrow?](#what-is-apache-arrow?)
   * [What is PyGDF?](#what-is-pygdf?)
 * [Prsentation](#presentation)
 * [Installation](#installation)
@@ -32,7 +33,35 @@ The goal is to research about GDF and how it works in a Python ecosystem and mak
 ### Introduction
 
 #### What is GDF?
-GDF (Gpu Data Frame) is the first step of [GOAI](https://github.com/gpuopenanalytics)  to build an end-to-end platform GPU-level. It's a data structure that allows data interchanging process running in GPU.
+GDF (Gpu Data Frame) is the first step of [GOAI](https://github.com/gpuopenanalytics)  to build an end-to-end platform GPU-level. It's a data structure that allows data interchanging process running in GPU. Based on [Apache Arrow](https://arrow.apache.org/) specification
+
+
+##### What is Apache Arrow?
+Apache arrow is a columnar in-memory analytics layer designed to accelerate big data. 
+* Uses modern CPU characteristics via vectorized operations and SIMD (Single Input multiple Data) instructions. 
+* Allows [zero-copy[(https://www.ibm.com/developerworks/library/j-zerocopy/) reads for lightning-fast data access
+* No overhead for cross-system communication
+* Projects can share functionality (eg: Parquet-to-Arrow reader)
+
+Image below shows actual architecture without Apache Arrow and latency to trasnferring data between different tools and formats:
+
+![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/arrow-less_architecture.png "Arrow-less Architecture")
+
+* Each system has its own internal memory format
+* 70-80% CPU wasted on serialization and deserialization
+* Similar functionality implemented in multiple projects
+
+
+
+Image below shows actual architecture with Apache Arrow and latency to trasnferring data between different tools and formats disappears:
+
+![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/arrow_architecture.png "Arrow-less Architecture")
+
+* All systems utilize the same memory format
+* No overhead for cross-system communication
+* Projects can share functionality (eg, Parquet-to-Arrow reader)
+
+
 
 Image below shows actual architecture without GDF and latency to trasnferring data from/to CPU:
 
