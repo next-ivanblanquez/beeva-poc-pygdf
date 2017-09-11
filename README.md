@@ -15,6 +15,7 @@
 * [Experiments](#experiments)
   * [Select-Where](#select-where)
   * [Queries cached](#queries-cached)
+  * [Not enough answers](#not-enough-answers)
 * [Experiments Conclusions](#experiments-conclusions)
 * [What are the limits](#what-are-the-limits)
 * [Final Recommendations](#final-recommendations)
@@ -420,11 +421,56 @@ So will be the same behaviour for all functions. I decide to proof with columnar
 | Right join    | 260.33 | 265.75|
 
 
-As you can see, time decrease after run first time each operation, even in the same iteratio you operate over other dataser, time is less than first time over a smaller dataset.
+As you can see, time decrease after run first time each operation, even in the same iteration you operate over other dataset, time is less than first time over a smaller dataset.
 
 So it seems that PyGDF is able to cache all operations and achive better time the next times you run them, even a bigger dataset.
 
 Even with warm-up fase and obtaining a better performance, Pandas still been faster in join operations (see result for Pandas code running un c4.4xlarge instance)
+
+#### Not enough answers
+
+After these proofs, conclusions are not enough clear. Patterns didn't find, some behaviours are inexplicables, so I decided focus proofs in the other way. Take left join operation and research deeply about PyGDF behabiour to stablish hypothesis and bear out or deny them.
+
+New scenario was run join (left, inner, outer and right beetwen ratings and users) in two iteration each one increasion ratings dataset from 1M to 20M items. E.g. I launch a EC2 and run left join with two iteration loading data in the same execution in three different variables Results are below:
+
+
+* Left Join:
+
+| Ratings Items Number | Iteration 1  | Iteration 2 |
+|----------------------|--------------|-------------|
+| 1M        	       |      1246,42    |      218,30   |
+| 10M        	       |       614,41 |        410,58 |
+| 20M        	       |       648,28 |        634,02  |
+
+* Inner Join:
+
+| Ratings Items Number | Iteration 1  | Iteration 2 |
+|----------------------|--------------|-------------|
+| 1M        	       |      1003,58    |     116,01    |
+| 10M        	       |         361,98 |         180,27|
+| 20M        	       |         268,80 |         259,98|
+
+* Outer Join:
+
+| Ratings Items Number | Iteration 1  | Iteration 2 |
+|----------------------|--------------|-------------|
+| 1M        	       |         1253,73 |        218,30 |
+| 10M        	       |          592,62|         410,58|
+| 20M        	       |          661,51|         634,02|
+
+
+* Right Join:
+
+| Ratings Items Number | Iteration 1  | Iteration 2 |
+|----------------------|--------------|-------------|
+| 1M        	       |         1011,22 |         118,99|
+| 10M        	       |          350,51|         178,25|
+| 20M        	       |          260,33|         265,75|
+
+
+
+Now arise some questions, in first iteration always 1M spent much more time to bigger dataset, why? And if queries ar cached why time between iteration 1 and 2 in file with 10M of items are not in same times that file with 20?
+
 
 
 ### Experiments Conclusions
