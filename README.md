@@ -40,7 +40,7 @@ GDF (Gpu Data Frame) is the first step of [GOAI](http://gpuopenanalytics.com/)  
 
 ##### What is Apache Arrow?
 Apache arrow is a columnar in-memory analytics layer designed to accelerate big data. 
-* Uses modern CPU characteristics via vectorized operations and SIMD (Single Input Multiple Data) instructions. 
+* Uses modern CPU characteristics via vectorized operations and SIMD (Single Instruction Multiple Data) instructions. 
 * Allows [zero-copy](https://www.ibm.com/developerworks/library/j-zerocopy/) reads for lightning-fast data access
 * No overhead for cross-system communication
 * Projects can share functionality (eg: Parquet-to-Arrow reader)
