@@ -471,27 +471,31 @@ New scenario was run join (left, inner, outer and right beetwen ratings and user
 
 Now arise some questions, in first iteration always 1M spent much more time to bigger dataset, why? And if queries ar cached why time between iteration 1 and 2 in file with 10M of items are not in same times that file with 20?
 
+To answer these question I decided focuse only in one operation (left join) and change redefine proof scenario, running the same proof that before but in this case restarting python kernel and compare results to obtained befor. Please see  [Experiments Conclusions](#experiments-conclusions) to know final results.
+
 
 
 ### Experiments Conclusions
 
-As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gpu-with-the-gpu-data-frame-gdf/), GPU Data Frame is thinking and designed for manage data in GPU-side and avoid intercommunicate through GPU-PCI-CPU. Maybe this is the main advantage of this project. Using Pandas we can found some advantages and some disadvantage, I talk about them in each of three scenarios:
 
-* **Statistical operations through columns**
-  * GDF implements [Apache Arrow](https://arrow.apache.org/) specification, a Columnar In-Memory data storage that enables execution engines to take advantage of the latest SIMD allows [zero-copy](https://www.ibm.com/developerworks/library/j-zerocopy/) reads for lightning-fast data access.
-  * Processes looping through columns are faster using PyGDF than using Pandas (between 5 and 20 times faster), except when data size is small, because time to transfer data from cpu to gpu is greater than time to process these data. 
-  * PyGDF is Optimized for big datasets. It scales much better (at least until 20M). But it's not efficient with 1M or smaller.
+* **Time to warm-up CUDA environment**
+  * When launch a machine where never use CUDA environment before, system needs about 7-8 seconds to "warm-up" environment. This time is spent in a p2.xlarge with NVIDIA Tesla K80 only once.
+  * At least you doen't spent time to warm-upt CUDA environment for two hours.
 
+* **Time to warm-up PyGDF environment**
+  * PyGDF is able to compile instructions and cache it, so first time you run an instruction time to process is bigger than after. When instruction is cached you could change parameters and dataset size and PyGDF use cache to run it with best performance.
 
-* **Filter/Select Where queries**
-  * In this case, when you need launch a unique query once PyGDF behavior is very slow, because CUDA needs additional time to run in the first execution. First queries on PyGDF increase execution times 40% average.
-  * Running the same query several times changing parameters values, PyGDF is faster than Pandas. 
-  * Like operations through columns, PyGDF is Optimized for big datasets here. It scales much better (at least until 20M). But it's not efficient with 1M or smaller.
+* **Time for data allocation**
+  *  PyGDF spend time to increase memory necessary to allocate dataset. If you going to increase dataset in each iteration PyGDF always spend a period of time to increase memory. The best way to enhance performance is loading first the bigger dataset, because memory reservation at first is sufficient for next datasets and PyGDF doesn't need any extra time to allocate new datasets.
 
+* **Functions complexity order**
+  * The order of complexity in functions is O(n).
 
-* **Joins**
-  * I run two different proofs here, when join a dataset small with bigger one and the opposite case.
-  * Always Pandas is faster than PyGDF for this kind of operations.
+* **Lower limit**
+ * PyGDF spend more time than Pandas in processing small dataset (at least 1M of items) because needs more time in transfer data from disk to GPU than time needed by Pandas to process these amount of data.
+
+* **p2.8xlarge not enhance performance**
+ * I run a proof in a p2.8xlarge and results are not better than using p2.xlarge.
 
 
 ### What are the limits?
@@ -501,8 +505,8 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
 
 ### Final Recommendations
   * Project are immature, is not recommendable for using in production environment yet.
-  * Is a good option for run operations iteratively and make a warm-up scenario over a lightweight dataset and prepare system to get the best performance.
-  * For columnar processing. When you need process a great quantity of data in columnar way.
+  * Is a good option for run operations iteratively and make a warm-up scenario over a heavyweight dataset and prepare system to get the best performance.
+  * For columnar processing. When you need process a great quantity of data in columnar way or select-where like queries.
   * When you need to works in GPU scope. Main benefit of GDF is to maintain datasets in GPU scope and work with several tools in this scope.
 
 ### Future Lines
@@ -510,6 +514,7 @@ As you can read [here](https://www.mapd.com/blog/2017/05/30/end-to-end-on-the-gp
   * Launch the same tests in instances type p2.8xlarge and p2.16xlarge increasing size of datasets to know the really upper limit using AWS infrastructure.
   * Next step should be a Proof of Concept using MapD, GDF and H2.io as indicates in [this post](https://devblogs.nvidia.com/parallelforall/goai-open-gpu-accelerated-data-analytics/) or do tests with several tools that only works in SPU-scope.
   * About limits, it is a good idea to check how many queries is able to cached.
+  * Continue researching on these hypothesis and make more experiments for comlumnar and select-where like operations.
 
 ### Resources
 * [Slides with summary](https://docs.google.com/a/beeva.com/presentation/d/1PnoxmLM3Afsmxh2nm81bNkNZE8OUlmaNuwb6Nsv3tcI/edit?usp=sharing)
