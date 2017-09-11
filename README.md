@@ -5,6 +5,7 @@
 * [Introduction](#introduction)
   * [What is GDF?](#what-is-gdf?)
 	  * [What is Apache Arrow?](#what-is-apache-arrow?)
+	  *[GDF Architecture](#gdf-architecture)
   * [What is PyGDF?](#what-is-pygdf?)
 * [Prsentation](#presentation)
 * [Installation](#installation)
@@ -62,7 +63,7 @@ Image below shows actual architecture with Apache Arrow and latency to trasnferr
 * Projects can share functionality (eg, Parquet-to-Arrow reader)
 
 
-
+##### GDF Architecture
 Image below shows actual architecture without GDF and latency to trasnferring data from/to CPU:
 
 ![alt text](https://github.com/beeva-ivanblanquez/beeva-poc-pygdf/blob/master/img/gdf-less_architecture.png "GDF-less Architecture")
